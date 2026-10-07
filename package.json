@@ -10,6 +10,7 @@
   "scripts": {
     "start": "node server/main.js",
     "dev": "node --watch server/main.js",
+    "build": "node scripts/build-vercel.mjs",
     "migrate": "node server/db/cli-migrate.js",
     "seed": "node server/db/cli-seed.js",
     "bootstrap": "node server/db/cli-bootstrap.js",
