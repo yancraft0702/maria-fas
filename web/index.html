@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
+  <title>MARIA FÃS</title>
+  <meta name="description" content="MARIA FÃS - videos curtos, rede social, chat e LIVE.">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark light">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MARIA FÃS">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="stylesheet" href="/css/app.css">
+  <style>
+    /* Bootstrap: aparece antes do CSS principal carregar */
+    #boot {
+      position: fixed; inset: 0; z-index: 9999;
+      display: grid; place-items: center;
+      background: #000; color: #fff;
+      font: 500 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    #boot .mark { font-size: 28px; font-weight: 800; letter-spacing: 4px; }
+    #boot .msg { margin-top: 10px; opacity: .6; font-size: 13px; }
+    @media (prefers-color-scheme: light) { #boot { background: #fff; color: #000; } }
+  </style>
+</head>
+<body>
+  <div id="boot" role="status" aria-live="polite">
+    <div>
+      <div class="mark">MARIA FÃS</div>
+      <div class="msg" id="boot-msg">carregando…</div>
+    </div>
+  </div>
+
+  <a class="skip-link" href="#main">Pular para o conteudo</a>
+
+  <div id="app" class="app" hidden>
+    <!-- Navegacao lateral (desktop) -->
+    <aside class="sidebar" id="sidebar" aria-label="Navegacao principal">
+      <a class="brand" href="/" data-link aria-label="MARIA FÃS - inicio">
+        <span class="brand-mark" id="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text">MARIA FÃS</span>
+      </a>
+      <nav class="side-nav" id="side-nav"></nav>
+      <div class="side-footer">
+        <button type="button" class="side-btn" id="btn-theme" aria-label="Alternar tema"></button>
+        <button type="button" class="side-btn" id="btn-settings" aria-label="Configuracoes">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="M19.4 13a7.9 7.9 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7.7 7.7 0 0 0-1.7-1L15 3h-4l-.3 2.6a7.7 7.7 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.9 7.9 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7.7 7.7 0 0 0 1.7 1L11 21h4l.3-2.6a7.7 7.7 0 0 0 1.7-1l2.4 1 2-3.4-2-1.6Z"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Area central -->
+    <div class="main-wrap">
+      <header class="topbar" id="topbar">
+        <button type="button" class="topbar-back" id="btn-back" aria-label="Voltar" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <a class="topbar-brand" href="/" data-link aria-label="MARIA FÃS">
+          <span id="topbar-heart" aria-hidden="true"></span>
+        </a>
+        <div class="topbar-actions" id="topbar-actions"></div>
+      </header>
+
+      <main id="main" class="main" tabindex="-1"></main>
+
+      <!-- Navegacao inferior (mobile) -->
+      <nav class="tabbar" id="tabbar" aria-label="Navegacao principal"></nav>
+    </div>
+
+  </div>
+
+  <!-- Camadas flutuantes -->
+  <div id="toasts" class="toasts" aria-live="polite" aria-atomic="false"></div>
+  <div id="modal-root" class="modal-root"></div>
+  <div id="live-effects" class="live-effects" aria-hidden="true"></div>
+  <div id="live-hearts" class="live-hearts" aria-hidden="true"></div>
+  <div id="mini-player-host" class="mini-player-host"></div>
+  <div id="push-prompt" class="push-prompt" hidden>
+    <div>
+      <strong>Ativar notificacoes?</strong>
+      <p>Receba alertas de curtidas, comentarios, mensagens e LIVE.</p>
+    </div>
+    <div class="push-prompt-actions">
+      <button type="button" class="btn btn-ghost" id="push-dismiss">Agora nao</button>
+      <button type="button" class="btn btn-primary" id="push-accept">Ativar</button>
+    </div>
+  </div>
+
+  <script type="module" src="/js/main.js"></script>
+  <noscript>
+    <p style="padding:24px;font:16px system-ui">O MARIA FÃS precisa de JavaScript habilitado.</p>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: maria-fas
+    runtime: node
+    plan: starter
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    disk:
+      name: maria-fas-data
+      mountPath: /var/data
+      sizeGB: 10
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: LIVE_TOKEN_SECRET
+        generateValue: true
+      - key: DATABASE_PATH
+        value: /var/data/data/pulse.db
+      - key: STORAGE_ROOT
+        value: /var/data/storage
+      - key: PUBLIC_URL
+        sync: false
+      - key: TURN_URLS
+        sync: false
+      - key: TURN_USERNAME
+        sync: false
+      - key: TURN_CREDENTIAL
+        sync: false
+      - key: TURN_SECRET
+        sync: false
+      - key: TURN_TTL_SECONDS
+        value: "3600"

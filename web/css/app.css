@@ -1,0 +1,2907 @@
+/* ==========================================================================
+   MARIA FÃS - folha de estilos principal
+   Mobile-first. Layout proprio para desktop (>= 1024px).
+
+   Paleta: roxo -> rosa -> vermelho, sobre preto/branco.
+   O preto predomina nas areas de video (contraste do conteudo); as cores
+   fortes ficam reservadas para acao, marca e destaque - nao em tudo, para
+   nao cansar nem quebrar leitura.
+   ========================================================================== */
+
+/* ==========================================================================
+   IDENTIDADE VISUAL (item 17)
+   Rosa + roxo + preto + branco, com gradiente entre os tons de destaque.
+   Tudo por variavel semantica: nenhuma cor espalhada pelo CSS.
+   ========================================================================== */
+:root {
+  /* ---- Superficies: preto e preto arroxeado ---- */
+  --preto: #05040a;
+  --preto-2: #0b0914;
+  --preto-arroxeado: #16101f;
+  --preto-arroxeado-2: #1e1730;
+
+  --bg: var(--preto);
+  --bg-elev: var(--preto-arroxeado);
+  --bg-elev-2: var(--preto-arroxeado-2);
+  --bg-input: #2a2138;
+  /* Fundo com toque roxo: profundidade sem virar neon. */
+  --bg-tinta: radial-gradient(1100px 520px at 12% -10%, rgba(139, 92, 246, .13), transparent 62%),
+              radial-gradient(900px 480px at 92% 0%, rgba(236, 72, 153, .10), transparent 60%),
+              var(--preto);
+
+  /* ---- Texto: branco e cinza claro ---- */
+  --branco: #ffffff;
+  --fg: var(--branco);
+  --fg-dim: rgba(255, 255, 255, .74);
+  --fg-faint: rgba(255, 255, 255, .52);
+  --line: rgba(255, 255, 255, .13);
+  --line-forte: rgba(255, 255, 255, .24);
+
+  /* ---- Destaques: rosa e roxo ---- */
+  --rosa: #ec4899;
+  --rosa-viva: #ff5ca8;
+  --rosa-escura: #be1e6b;
+  --roxo: #8b5cf6;
+  --roxo-vivo: #a78bfa;
+  --roxo-escuro: #6d28d9;
+  --magenta: #d946ef;
+
+  --brand: var(--rosa);
+  --brand-2: var(--roxo);
+  --brand-3: var(--rosa-viva);
+  --brand-grad: linear-gradient(120deg, var(--roxo) 0%, var(--rosa) 55%, var(--rosa-viva) 100%);
+  --brand-grad-180: linear-gradient(180deg, var(--rosa) 0%, var(--roxo) 100%);
+  --brand-grad-soft: linear-gradient(120deg, rgba(139, 92, 246, .24) 0%, rgba(236, 72, 153, .18) 60%, rgba(255, 92, 168, .16) 100%);
+  --brand-brilho: 0 0 0 1px rgba(236, 72, 153, .45), 0 8px 26px -10px rgba(236, 72, 153, .65);
+  --marca-fg: var(--brand-grad);
+
+  /* Texto SOBRE o acento: branco puro garante contraste nos botoes rosa/roxo. */
+  --on-brand: #ffffff;
+
+  /* ---- Lado "da outra pessoa" na conversa (item 4) ----
+     A identidade do produto continua rosa/roxo/preto/branco: o azul existe
+     SO para diferenciar a bolha do interlocutor, e e escuro o bastante para
+     manter o branco do texto legivel (contraste medido, nao chute). */
+  --azul-bolha: #2563eb;
+  --azul-bolha-forte: #1d4ed8;
+  --azul-bolha-clara: #3b82f6;
+  --on-azul: #ffffff;
+  --azul-grad: linear-gradient(135deg, var(--azul-bolha-clara) 0%, var(--azul-bolha-forte) 100%);
+
+  /* ---- Estado ---- */
+  --vermelho: #ef2b4f;
+  --like: var(--rosa);
+  --ok: #34d399;
+  --warn: #fbbf24;
+  --danger: #f43f5e;
+  --info: var(--roxo);
+
+  --radius: 12px;
+  --radius-lg: 18px;
+  --tabbar-h: 54px;
+  --topbar-h: 52px;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-l: env(safe-area-inset-left, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --shadow: 0 10px 34px rgba(0, 0, 0, .55);
+  --shadow-marca: 0 8px 26px -12px rgba(236, 72, 153, .7);
+  --font-scale: 1;
+}
+
+html[data-theme="light"] {
+  --preto: #ffffff;
+  --bg: #fdfbff;
+  --bg-elev: #ffffff;
+  --bg-elev-2: #f6f0fc;
+  --bg-input: #ece4f7;
+  --preto-arroxeado: #ffffff;
+  --preto-arroxeado-2: #f6f0fc;
+  --fg: #16091f;
+  --fg-dim: rgba(22, 9, 31, .74);
+  --fg-faint: rgba(22, 9, 31, .52);
+  --line: rgba(109, 40, 217, .18);
+  --line-forte: rgba(109, 40, 217, .32);
+  /* No claro o rosa puro tem contraste insuficiente sobre branco: usa a
+     variacao escura para texto/icones e mantem a viva para gradiente. */
+  --rosa: #c61b6d;
+  --rosa-viva: #db2b81;
+  --roxo: #6d28d9;
+  --brand: var(--rosa);
+  --on-brand: #ffffff;
+  /* Mesma ideia no tema claro, com azuis mais escuros para o branco do texto
+     da bolha continuar legivel. */
+  --azul-bolha: #1d4ed8;
+  --azul-bolha-forte: #1e3a8a;
+  --azul-bolha-clara: #2563eb;
+  --on-azul: #ffffff;
+  --azul-grad: linear-gradient(135deg, var(--azul-bolha-clara) 0%, var(--azul-bolha-forte) 100%);
+  --shadow: 0 10px 30px rgba(76, 29, 149, .12);
+  --shadow-marca: 0 8px 22px -12px rgba(198, 27, 109, .6);
+}
+
+html[data-contrast="high"] {
+  --fg: #fff;
+  --fg-dim: #fff;
+  --fg-faint: #e6e6e6;
+  --line: rgba(255, 255, 255, .4);
+}
+html[data-contrast="high"][data-theme="light"] { --fg: #000; --fg-dim: #000; --fg-faint: #1a1a1a; --line: rgba(0, 0, 0, .5); }
+
+* { box-sizing: border-box; }
+
+/* `hidden` precisa vencer o `display` das classes.
+   Sem isto, qualquer elemento com `display:flex/grid` no CSS fica SEMPRE
+   visivel mesmo com o atributo hidden - foi o que travou o aviso de push
+   (os botoes "Ativar"/"Agora nao" clicavam e o aviso continuava na tela). */
+[hidden] { display: none !important; }
+
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: rgba(128, 128, 128, .35); border-radius: 8px; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: calc(16px * var(--font-scale));
+  line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+body.no-scroll { overflow: hidden; }
+
+svg { width: 1.35em; height: 1.35em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+svg.filled { fill: currentColor; stroke: none; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute; left: 8px; top: -60px; z-index: 10000;
+  background: var(--fg); color: var(--bg); padding: 10px 16px;
+  border-radius: 0 0 8px 8px; text-decoration: none; transition: top .15s;
+}
+.skip-link:focus { top: 0; }
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+html[data-motion="reduce"] *,
+html[data-motion="reduce"] *::before,
+html[data-motion="reduce"] *::after {
+  animation-duration: .001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: .001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* ------------------------------ Layout ---------------------------------- */
+.app {
+  display: flex;
+  min-height: 100dvh;
+  min-height: 100vh;
+}
+
+.main-wrap {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* ------------------------------ Sidebar --------------------------------- */
+.sidebar {
+  display: none;
+  width: 240px;
+  flex: 0 0 240px;
+  /* Superficie "preto arroxeado" com um halo rosa no topo: profundidade sem
+     reliance de neon. */
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--rosa) 9%, transparent) 0%, transparent 220px),
+    var(--bg-elev);
+  border-right: 1px solid var(--line);
+  padding: 12px 8px calc(12px + var(--safe-b));
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
+}
+
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 10px 16px; text-decoration: none; color: var(--fg);
+  font-weight: 800; font-size: 20px; letter-spacing: 1px;
+}
+/* ---- Coracao da marca (fonte unica: core/dom.js -> brandHeart()) ------- */
+.heart-logo { display: block; }
+.heart-logo .heart-body { fill: var(--brand-grad); }
+.heart-logo .heart-shine { fill: rgba(255, 255, 255, .34); }
+
+.brand-mark {
+  width: 30px; height: 30px; flex: 0 0 30px;
+  display: grid; place-items: center;
+}
+.brand-mark .heart-logo { filter: drop-shadow(0 3px 8px rgba(236, 72, 153, .30)); }
+
+/* Coracao compacto no topo do celular (item 21). */
+.topbar-brand {
+  display: none; align-items: center; justify-content: center;
+  width: 34px; height: 34px; flex: 0 0 auto; text-decoration: none;
+}
+@media (max-width: 1023px) { .topbar-brand { display: flex; } }
+.brand-text { background: var(--brand-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+.side-nav { display: flex; flex-direction: column; gap: 2px; }
+/* Item ativo da navegacao: fundo com gradiente suave da marca + texto branco,
+   para o destaque ser rosa/roxo sem estourar o contraste. */
+.side-nav a[aria-current="page"],
+.side-nav button[aria-current="page"] {
+  color: var(--fg);
+  background: var(--brand-grad-soft);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--rosa) 34%, transparent);
+}
+.side-nav a:hover, .side-nav button:hover { color: var(--fg); }
+/* Item 11: botao de publicar destacado na sidebar do PC. */
+.side-create {
+  margin: 6px 0 4px;
+  border: 1px solid color-mix(in srgb, var(--rosa) 45%, var(--line));
+  background: color-mix(in srgb, var(--brand-grad) 16%, transparent);
+  font-weight: 800;
+}
+.side-create:hover { background: color-mix(in srgb, var(--brand-grad) 28%, transparent); }
+.side-create svg { color: var(--brand); }
+.side-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 12px; border-radius: 10px;
+  color: var(--fg); text-decoration: none; font-weight: 600;
+  border: none; background: none; cursor: pointer; width: 100%; text-align: left;
+  font-size: 15px;
+}
+.side-link:hover { background: var(--bg-elev); }
+.side-link[aria-current="page"] { background: var(--bg-elev-2); font-weight: 700; }
+.side-link svg { width: 24px; height: 24px; }
+.side-link .badge { margin-left: auto; }
+.side-link .live-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--danger);
+  margin-left: auto; animation: pulse 1.6s infinite;
+}
+.side-footer { margin-top: auto; padding-top: 12px; display: flex; gap: 6px; }
+.side-btn {
+  flex: 1; padding: 10px; border-radius: 10px; border: 1px solid var(--line);
+  background: none; color: var(--fg); cursor: pointer; display: grid; place-items: center;
+}
+.side-btn:hover { background: var(--bg-elev); }
+
+.badge {
+  min-width: 18px; height: 18px; padding: 0 5px;
+  border-radius: 9px; background: var(--brand-2); color: #fff;
+  font-size: 11px; font-weight: 700; display: grid; place-items: center;
+}
+
+/* ------------------------------ Topbar ---------------------------------- */
+.topbar {
+  /* Mesma identidade da sidebar: superficie escura + toque da marca. */
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--rosa) 8%, transparent) 0%, transparent 140px),
+    color-mix(in srgb, var(--bg) 92%, transparent);
+  position: sticky; top: 0; z-index: 40;
+  height: calc(var(--topbar-h) + var(--safe-t));
+  padding: var(--safe-t) 12px 0;
+  display: flex; align-items: center; gap: 10px;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar-back {
+  flex: 0 0 auto; width: 36px; height: 36px; border-radius: 10px;
+  border: none; background: none; color: var(--fg); cursor: pointer;
+  display: grid; place-items: center;
+}
+.topbar-back svg { width: 24px; height: 24px; stroke-width: 2.4; }
+
+.search { position: relative; flex: 1 1 auto; min-width: 0; }
+.search-icon {
+  position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+  width: 18px; height: 18px; color: var(--fg-faint); pointer-events: none;
+}
+.search input {
+  width: 100%; height: 38px; border-radius: 19px;
+  border: 1px solid var(--line); background: var(--bg-input); color: var(--fg);
+  padding: 0 34px 0 34px; font-size: 15px; font-family: inherit;
+  -webkit-appearance: none;
+}
+.search input::placeholder { color: var(--fg-faint); }
+.search input:focus { outline: none; border-color: var(--brand); }
+.search-clear {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  width: 26px; height: 26px; border-radius: 50%; border: none;
+  background: var(--fg-faint); color: var(--bg); font-size: 16px; cursor: pointer;
+  display: grid; place-items: center;
+}
+
+/* ---- Busca compacta (item 9) -------------------------------------------
+   A barra grande do cabecalho saiu; a busca continua existindo na tela
+   /busca, aberta pela lupa que fica ao lado das abas - desktop e mobile. */
+.topbar-actions { display: flex; align-items: center; gap: 6px; flex: 0 0 auto; }
+.icon-btn {
+  width: 38px; height: 38px; border-radius: 10px; border: none;
+  background: none; color: var(--fg); cursor: pointer;
+  display: grid; place-items: center; position: relative;
+}
+.icon-btn:hover { background: var(--bg-elev); }
+.icon-btn .badge { position: absolute; top: 3px; right: 2px; }
+.icon-btn.live { color: var(--danger); }
+
+.avatar-btn {
+  width: 34px; height: 34px; border-radius: 50%; overflow: hidden;
+  border: none; padding: 0; cursor: pointer; background: var(--bg-elev-2);
+  flex: 0 0 auto;
+}
+.avatar-btn img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ------------------------------ Main ------------------------------------ */
+.main {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  overflow-x: clip;
+  outline: none;
+}
+.main.flush { overflow: hidden; }
+
+/* ------------------------------ Tabbar ---------------------------------- */
+.tabbar {
+  position: sticky; bottom: 0; z-index: 45;
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  height: calc(var(--tabbar-h) + var(--safe-b));
+  padding-bottom: var(--safe-b);
+  /* Vidro escuro com um fio de luz rosa na borda superior: separa a barra do
+     conteudo sem pesar. */
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--rosa) 12%, transparent) 0%, transparent 2px),
+    color-mix(in srgb, var(--bg-elev) 86%, transparent);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-top: 1px solid var(--line);
+}
+
+.tab {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2px; border: none; background: none; color: var(--fg-dim);
+  cursor: pointer; text-decoration: none; font-size: 10px; font-weight: 600;
+  position: relative; padding: 0;
+}
+.tab[aria-current="page"] {
+  /* Ativo = rosa da marca; inativo = cinza claro (contraste preservado). */
+  color: var(--rosa);
+}
+.tab[aria-current="page"] svg { filter: drop-shadow(0 3px 8px color-mix(in srgb, var(--rosa) 45%, transparent)); }
+.tab svg { width: 24px; height: 24px; }
+.tab .tab-badge {
+  position: absolute; top: 4px; left: calc(50% + 6px);
+  min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px;
+  background: var(--brand-2); color: #fff; font-size: 10px; font-weight: 700;
+  display: grid; place-items: center;
+}
+.tab-create {
+  align-self: center; justify-self: center;
+  width: 44px; height: 30px; border-radius: 10px;
+  background: var(--brand-grad);
+  border: none; cursor: pointer; color: var(--on-brand);
+  display: grid; place-items: center;
+  box-shadow: var(--shadow-marca);
+}
+.tab-create svg { width: 20px; height: 20px; stroke-width: 2.6; }
+.tab-create span { display: none; }
+
+/* ---- Menu de criacao (item 9) ------------------------------------------
+   Quatro acoes, uma por linha, compacta e sem cobrir a tela inteira. O
+   botao "+" da bottom nav e o "Publicar" da sidebar abrem este mesmo menu. */
+.create-menu-list { display: flex; flex-direction: column; gap: 6px; }
+.create-menu-item {
+  display: flex; align-items: center; gap: 12px;
+  width: 100%; padding: 12px; min-height: 56px;
+  border: 1px solid var(--line); border-radius: 12px;
+  background: var(--bg-elev); color: var(--fg);
+  font: inherit; text-align: left; cursor: pointer;
+}
+.create-menu-item:hover { border-color: var(--brand); background: var(--bg-elev-2); }
+.create-menu-icon {
+  flex: 0 0 auto; width: 38px; height: 38px; border-radius: 11px;
+  display: grid; place-items: center;
+  background: color-mix(in srgb, var(--brand-grad) 18%, transparent);
+  color: var(--brand);
+}
+.create-menu-icon svg { width: 20px; height: 20px; }
+.create-menu-label { display: block; font-size: 15px; font-weight: 700; line-height: 1.2; }
+.create-menu-desc { display: block; font-size: 12.5px; color: var(--fg-dim); }
+.create-menu-item .grow { min-width: 0; }
+
+/* Foto e texto */
+.sr-file {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.create-photo-preview {
+  width: 100%; aspect-ratio: 4 / 5; max-height: 46dvh;
+  border: 1px dashed var(--line); border-radius: 12px;
+  background: var(--bg-elev-2); color: var(--fg-dim);
+  display: grid; place-items: center; cursor: pointer; overflow: hidden;
+}
+.create-photo-preview svg { width: 40px; height: 40px; }
+.create-photo-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.create-error { margin: 0; font-size: 13px; color: var(--danger, #ff6b6b); min-height: 18px; }
+
+/* ---- Iniciar LIVE (acao principal da tela AO VIVO) --------------------- */
+.live-start {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 14px; flex-wrap: wrap;
+  padding: 16px;
+  border-color: color-mix(in srgb, var(--vermelho) 45%, var(--line));
+  background: linear-gradient(120deg,
+    color-mix(in srgb, var(--roxo) 14%, var(--bg-elev)) 0%,
+    color-mix(in srgb, var(--rosa) 12%, var(--bg-elev)) 55%,
+    color-mix(in srgb, var(--vermelho) 14%, var(--bg-elev)) 100%);
+}
+.live-start-text { flex: 1 1 240px; min-width: 0; }
+.live-start-title {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 800; font-size: 16px; color: var(--fg); margin-bottom: 4px;
+}
+.live-start-title svg { color: var(--vermelho); }
+.live-start-btn {
+  flex: 0 0 auto; min-height: 46px; padding: 0 22px;
+  font-weight: 800; letter-spacing: .4px;
+  background: var(--brand-grad); color: #fff;
+}
+.live-start-btn:hover { filter: brightness(1.08); }
+@media (max-width: 420px) {
+  .live-start-btn { width: 100%; }
+}
+
+.live-directory-item { gap: 12px; }
+.live-directory-avatar {
+  display: grid; place-items: center;
+  border: 2px solid var(--danger);
+}
+.live-directory-avatar > svg { width: 22px; height: 22px; color: var(--fg-dim); }
+.live-directory-avatar > img { position: absolute; inset: 0; }
+.live-directory-details { display: flex; flex-direction: column; gap: 4px; }
+.live-directory-username { font-size: 14px; }
+.live-directory-stats { display: flex; gap: 10px; flex-wrap: wrap; }
+.live-directory-stats svg { width: 13px; height: 13px; }
+.live-directory-join { flex: 0 0 auto; }
+@media (max-width: 430px) {
+  .live-directory-item { gap: 8px; padding: 10px; }
+  .live-directory-item .live-directory-avatar { width: 38px; height: 38px; }
+  .live-directory-join { padding: 0 9px; font-size: 11.5px; }
+}
+@media (max-width: 340px) {
+  .live-directory-item { gap: 6px; padding: 8px; }
+  .live-directory-item .live-directory-avatar { width: 34px; height: 34px; }
+  .live-directory-join { padding: 0 7px; font-size: 10.5px; }
+}
+
+/* ------------------------------ Botoes ---------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 42px; padding: 0 18px; border-radius: 10px;
+  border: 1px solid transparent; font: inherit; font-weight: 700; font-size: 15px;
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+  transition: filter .12s ease, background .12s ease;
+}
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+/* Branco sobre o gradiente rosa/roxo mantem contraste alto (o preto aqui
+   falhava a regra de contraste da WCAG em AA). */
+.btn-primary { background: var(--brand-grad); color: var(--on-brand); }
+.btn-solid { background: var(--fg); color: var(--bg); }
+.btn-ghost { background: none; border-color: var(--line); color: var(--fg); }
+.btn-ghost:hover { background: var(--bg-elev); }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-sm { min-height: 34px; padding: 0 12px; font-size: 13px; }
+/* Telas estreitas: os botoes de acao da lista encolhem para o NOME COMPLETO
+   caber na mesma linha. Sem isto o nome saia cortado ("ESP8A23...") em 320-390px,
+   e "texto cortado" esta entre os defeitos do item 13. */
+@media (max-width: 430px) {
+  .list-item { gap: 8px; padding: 10px 12px; }
+  .list-item .btn-sm { min-height: 32px; padding: 0 9px; font-size: 12px; }
+  .list-item .avatar { width: 38px; height: 38px; }
+}
+@media (max-width: 340px) {
+  .list-item { gap: 6px; padding: 10px; }
+  .list-item .btn-sm { padding: 0 7px; font-size: 11.5px; }
+  .list-item .avatar { width: 34px; height: 34px; }
+}
+.btn-block { width: 100%; }
+
+/* ------------------------------ Cartoes --------------------------------- */
+.card {
+  background: var(--bg-elev); border: 1px solid var(--line);
+  border-radius: var(--radius-lg); padding: 16px;
+}
+.card + .card { margin-top: 12px; }
+
+.list { display: flex; flex-direction: column; gap: 10px; }
+.list-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px; background: var(--bg-elev);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  text-decoration: none; color: inherit;
+}
+/* O bloco de texto cede espaco (`min-width: 0`) em vez de transbordar: e o que
+   permite o nome encolher com elipse em vez de empurrar os botoes para fora
+   da linha. */
+.list-item > .grow { min-width: 0; }
+.list-item:hover { background: var(--bg-elev-2); }
+
+.avatar {
+  width: 44px; height: 44px; border-radius: 50%; overflow: hidden;
+  background: var(--bg-elev-2); flex: 0 0 auto; position: relative;
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.avatar.sm { width: 32px; height: 32px; }
+.avatar.xs { width: 24px; height: 24px; }
+.avatar.lg { width: 92px; height: 92px; position: relative; }
+.avatar.ring { box-shadow: 0 0 0 2px var(--brand), 0 0 0 4px var(--bg); }
+
+.grow { flex: 1 1 auto; min-width: 0; }
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.muted { color: var(--fg-dim); }
+.faint { color: var(--fg-faint); }
+.small { font-size: 13px; }
+.tiny { font-size: 11px; }
+.strong { font-weight: 700; }
+.center { text-align: center; }
+.row { display: flex; align-items: center; gap: 8px; }
+.row-wrap { flex-wrap: wrap; }
+.col { display: flex; flex-direction: column; gap: 8px; }
+.spacer { flex: 1 1 auto; }
+.mt { margin-top: 12px; }
+.mb { margin-bottom: 12px; }
+
+.divider { height: 1px; background: var(--line); margin: 14px 0; border: 0; }
+
+/* ------------------------------ Formulario ------------------------------ */
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.field label { font-size: 13px; font-weight: 600; color: var(--fg-dim); }
+.input, .select, .textarea {
+  width: 100%; min-height: 44px; padding: 10px 12px;
+  border-radius: 10px; border: 1px solid var(--line);
+  background: var(--bg-input); color: var(--fg);
+  font: inherit; font-size: 15px; -webkit-appearance: none;
+}
+.textarea { min-height: 90px; resize: vertical; }
+.input:focus, .select:focus, .textarea:focus { outline: none; border-color: var(--brand); }
+.select {
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 18px) 20px, calc(100% - 13px) 20px;
+  background-size: 5px 5px, 5px 5px; background-repeat: no-repeat;
+  padding-right: 34px;
+}
+.switch { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; }
+.switch span { font-size: 14px; }
+.switch input[type="checkbox"] {
+  appearance: none; width: 46px; height: 26px; border-radius: 13px;
+  background: var(--bg-input); border: 1px solid var(--line);
+  position: relative; cursor: pointer; flex: 0 0 auto; transition: background .15s;
+}
+.switch input[type="checkbox"]::after {
+  content: ''; position: absolute; top: 2px; left: 2px;
+  width: 20px; height: 20px; border-radius: 50%; background: var(--fg-dim);
+  transition: transform .15s ease;
+}
+.switch input[type="checkbox"]:checked { background: var(--brand); border-color: var(--brand); }
+.switch input[type="checkbox"]:checked::after { transform: translateX(20px); background: #000; }
+
+.seg { display: flex; gap: 2px; padding: 3px; background: var(--bg-input); border-radius: 10px; overflow-x: auto; }
+.seg button {
+  flex: 1 0 auto; padding: 8px 14px; border: none; border-radius: 8px;
+  background: none; color: var(--fg-dim); font: inherit; font-size: 14px;
+  font-weight: 600; cursor: pointer; white-space: nowrap;
+}
+.seg button[aria-selected="true"] { background: var(--bg); color: var(--fg); }
+
+/* ------------------------------ Feed ------------------------------------ */
+/* O feed e um player de altura FIXA: a coluna preenche exatamente o espaco
+   entre o topo e a bottom nav.
+   Antes a altura vinha de `calc(100dvh - topbar - 40px)`, que ignorava as abas
+   e a bottom nav: o stage ficava 60-90px mais alto que o espaco real e a
+   barra inferior cobria o fim do video. Com flex o stage recebe o que sobra,
+   sem conta magica - e o mesmo esquema vale de 320px a 1920px. */
+.feed-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.feed-tabs {
+  position: sticky; top: calc(var(--topbar-h) + var(--safe-t)); z-index: 30;
+  flex: 0 0 auto;
+  display: flex; justify-content: center; gap: 4px; flex-wrap: nowrap;
+  padding: 8px 12px; background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+/* Item 4: no celular a Home e uma pagina de altura fixa (nao rola), entao o
+   offset sticky das abas so empurrava tudo para baixo e deixava ~52px de
+   vazio entre o topo e as abas. Aqui as abas ficam coladas no topobar. */
+@media (max-width: 700px) {
+  .feed-tabs { position: static; top: auto; }
+}
+.feed-tabs button,
+.feed-live-link {
+  position: relative;
+  padding: 7px 14px; border: none; background: none; color: var(--fg-dim);
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 36px; line-height: 1.3;
+  font: inherit; font-weight: 700; font-size: 15px; cursor: pointer;
+  /* O rotulo nunca quebra em duas linhas: em telas estreitas isso dobrava a
+     altura da barra de abas (74px em vez de 52px) e comia a altura do video. */
+  white-space: nowrap; flex: 0 1 auto; min-width: 0;
+}
+.feed-live-link {
+  text-decoration: none;
+}
+.feed-live-link:hover { color: var(--fg); }
+
+/* Telas estreitas (320-400px): abas mais compactas para os feeds, Ao Vivo e lupa
+   caberem em UMA linha, sem rolagem horizontal. */
+@media (max-width: 400px) {
+  .feed-tabs { gap: 2px; padding: 8px 8px; }
+  .feed-tabs button, .feed-live-link { padding: 6px 8px; font-size: 13.5px; }
+  .feed-tabs button[aria-selected="true"]::after { left: 8px; right: 8px; }
+  .feed-search-btn { width: 32px; height: 32px; margin-left: 2px; }
+}
+.feed-tabs button[aria-selected="true"],
+.feed-live-link[aria-current="page"] { color: var(--fg); }
+.feed-tabs button[aria-selected="true"]::after,
+.feed-live-link[aria-current="page"]::after {
+  content: ''; position: absolute; left: 14px; right: 14px; bottom: 2px;
+  height: 2px; background: var(--fg); border-radius: 2px;
+}
+/* Lupa de busca, colada na ultima aba (item 9). */
+.feed-search-btn {
+  position: relative;
+  width: 36px; height: 36px; flex: 0 0 auto; margin-left: 4px;
+  border: 1px solid var(--line); border-radius: 10px;
+  background: var(--bg-input); color: var(--fg);
+  display: grid; place-items: center; cursor: pointer;
+  transition: border-color .12s ease;
+}
+.feed-search-btn:hover { border-color: var(--brand); }
+.feed-search-btn svg { width: 18px; height: 18px; }
+
+/* ---- Rolagem vertical real (item 5) ---------------------------------
+   O palco e o CONTAINER DE SCROLL: cada publicacao e uma pagina inteira do
+   feed. A rolagem e a do proprio navegador (wheel, touchpad e swipe), com
+   `scroll-snap` alinhando as paginas. Nao existe mais `overflow: hidden` com
+   troca por estado - por isso o movimento parece uma pagina entrando e
+   saindo, e nao um fade. */
+.feed-stage {
+  position: relative;
+  /* Altura definida pelo flex da coluna (espaco real entre topo e bottom nav). */
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* `mandatory` porque um gesto precisa fechar em UMA publicacao: e o que da
+     a sensacao de pagina entrando e saindo, e nao de troca de conteudo.
+     So com mandatory, porem, o Chrome REJEITA rodadas pequenas e lentas
+     (mouse antigo, trackpad arrastando) e o feed gruda no primeiro video.
+     Por isso o JS tambem assenta a rolagem na pagina mais proxima quando o
+     gesto termina - ver `assentar()` em feed.js. Nada de troca por estado. */
+  scroll-snap-type: y mandatory;
+  overscroll-behavior-y: contain;
+  /* Barra de rolagem invisivel: o feed e um player, nao um documento. */
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.feed-stage::-webkit-scrollbar { width: 0; height: 0; }
+
+/* Cada publicacao ocupa exatamente uma pagina do palco. */
+.slide {
+  position: relative;
+  display: block;
+  width: 100%;
+  /* `100%` do conteudo rolavel = uma pagina, sem `100dvh` (contaria o topo
+     duas vezes e ignoraria abas e bottom nav). */
+  height: 100%;
+  min-height: 100%;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+/* Enquanto o navegador esta assentando a pagina, nada de "pular": o proprio
+   scroll-snap cuida do movimento. */
+.slide.no-snap { scroll-snap-align: none; }
+
+.slide-media {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  background: #000; overflow: hidden;
+}
+.slide-media video, .slide-media img {
+  width: 100%; height: 100%; object-fit: contain;
+  background: #000;
+}
+.slide-media video { max-height: 100%; }
+
+/* Modo imersivo (celular): o video preenche o espaco util do player.
+   A altura NAO e mais calculada com 100dvh (contava o topo duas vezes e
+   ignorava as abas e a bottom nav): quem define a altura e o flex da coluna. */
+@media (max-width: 899px) {
+  .slide-media video, .slide-media img { object-fit: cover; }
+}
+
+/* Bloco da postagem (avatar, @usuario, descricao).
+   O padding inferior e calculado: a bottom nav do celular reserva
+   --tabbar-h (+ safe-area) e o progresso/som ficam logo acima. Com um valor
+   fixo o texto caia atras da barra de navegacao. */
+.slide-overlay {
+  position: absolute; inset: auto 0 0 0;
+  /* Lateral direita reserva SO a largura da coluna de acoes (antes reservava
+     a altura inteira): e o que permite o texto descer para a regiao util
+     inferior sem passar por tras dos botoes. */
+  /* (Itens 1 e 2) Padding inferior = ponto de partida da coluna de acoes,
+     derivado da altura real da viewport. A descricao fica sempre acima da
+     bottom nav, nunca atras dos botoes, e a area superior do video cresce. */
+  padding: 16px var(--acoes-larg) var(--acoes-base) 16px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, .78) 0%, rgba(0, 0, 0, .4) 45%, transparent 100%);
+  pointer-events: none;
+}
+.slide-overlay > * { pointer-events: auto; }
+
+/* Sem bottom nav (desktop) o bloco usa a mesma folga proporcional da coluna
+   de acoes - as duas continuam alinhadas pela MESMA variavel. */
+@media (min-width: 900px) {
+  .slide-overlay { padding: 16px var(--acoes-larg) var(--acoes-base) 16px; }
+}
+
+.slide-author { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.slide-author .name { font-weight: 700; font-size: 15px; }
+/* (Item 7) Nome de exibicao em cima do @username. Ambos visiveis, com o
+   @username em cinza para nao competir com o nome. */
+.slide-author-text { display: grid; gap: 1px; min-width: 0; }
+.slide-author-text .name,
+.slide-author-text .username {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.slide-author-text .username { color: var(--fg-dim); font-size: 13px; font-weight: 500; }
+.slide-author-text .username:hover { color: var(--fg); }
+.slide-caption {
+  font-size: 14px; line-height: 1.4; margin-bottom: 8px;
+  /* (Item 7) Descricao multi-linha NAO e cortada: cresce ate o espaco que a
+     coluna de acoes deixa e, se ainda assim passar, rola dentro do proprio
+     bloco. As hashtags vem em seguida e ficam visiveis. */
+  max-height: 8.4em; overflow-y: auto; word-break: break-word;
+  overscroll-behavior: contain;
+}
+.slide-caption a { color: #fff; text-decoration: underline; }
+.slide-sound { display: flex; align-items: center; gap: 6px; font-size: 12.5px; opacity: .9; }
+.slide-sound svg { width: 14px; height: 14px; }
+
+/* Trilha de acoes lateral */
+/* Acoes laterais: acima do bloco de texto, que por sua vez ja reserva a
+   bottom nav. O offset usa as MESMAS variaveis do overlay para nao divergir. */
+/* ---- Coluna de acoes + bloco do autor (itens 1 e 2) -------------------
+   MEDICAO REAL DA VIEWPORT, nao valor fixo.
+
+   Antes o bloco do autor e a coluna de acoes guardavam `128px` de folga
+   fixa: num celular de 844px isso colocava o texto a ~192px do rodape, ou
+   seja, alto demais e com uma faixa de video quase vazia embaixo (o oposto
+   do feed vertical moderno, onde o texto encosta na regiao util inferior).
+
+   Agora a folga e derivada da altura VISIVEL da tela:
+     - `dvh` e a altura dinamica real (recalcula quando o endereco do
+       celular recolhe ou o teclado abre) - e o que "medir a viewport" numa
+       regra de CSS;
+     - `clamp(...)` transforma essa medida em uma folga proporcional, com
+       piso e teto para nao virar nem colado na barra nem flutuando;
+     - `--tabbar-h` e `--safe-b` continuam entram, entao a bottom nav nunca
+       e coberta.
+
+   O texto e a coluna continuamUsando a MESMA variavel, entao nunca se
+   sobrepoem: o texto para em `--acoes-base` e a coluna comeca nele. */
+.slide {
+  /* Folga entre o conteudo e a barra inferior: proporcional a altura real.
+     O `vh` vem antes do `dvh` como reserva para navegadores que ainda nao
+     conhecem a unidade dinamica - sem isso a declaracao inteira seria
+     descartada e a folga cairia no `auto`. */
+  --acoes-gap: clamp(10px, 2.4vh, 24px);
+  --acoes-gap: clamp(10px, 2.4dvh, 24px);
+  /* Ponto de partida da coluna de acoes e base do bloco de texto. */
+  --acoes-base: calc(var(--tabbar-h) + var(--safe-b) + var(--acoes-gap));
+  /* Largura reservada na lateral para a coluna de acoes: o suficiente para
+     os botoes, sem roubar metade da tela em telas estreitas. */
+  --acoes-larg: clamp(60px, 17vw, 84px);
+  /* Espacamento entre os botoes: uniforme e tambem proporcional, para a
+     coluna inteira ter a mesma presenca em 320px e em 1920px. */
+  --acoes-gap-b: clamp(6px, 1.1vh, 12px);
+  --acoes-gap-b: clamp(6px, 1.1dvh, 12px);
+}
+.slide-actions {
+  position: absolute; right: 8px;
+  /* Item 2: encosta na regiao util inferior (barra inferior + folga), em vez
+     de flutuar 128px acima dela. */
+  bottom: var(--acoes-base);
+  display: flex; flex-direction: column; gap: var(--acoes-gap-b); align-items: center;
+  z-index: 5;
+}
+@media (min-width: 900px) {
+  /* Sem bottom nav no desktop: a folga e so a medida da viewport. */
+  .slide { --acoes-base: var(--acoes-gap); }
+  .slide-actions { right: 14px; }
+}
+
+.act {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  background: none; border: none; color: var(--branco); cursor: pointer;
+  /* Alvo de toque confortavel para usar com uma mao so (item 4). */
+  min-width: 46px; min-height: 46px; padding: 2px 0;
+  font-size: 11px; font-weight: 700; text-shadow: 0 1px 3px rgba(0, 0, 0, .7);
+  min-width: 44px; min-height: 44px; justify-content: center;
+}
+.act svg { width: 32px; height: 32px; filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .6)); }
+.act.on { color: var(--like); }
+.act.on svg { animation: pop .28s ease; }
+
+/* Botao de som do video (item 10).
+   O estado visual vem SO do <video>: `data-sound="on"` quando o elemento
+   esta com audio, `data-sound="off"` quando esta mudo. Nao reaproveita
+   `.act.on` (que e vermelho por ser o botao de curtir). */
+.act-sound { position: relative; }
+.act-sound svg { transition: transform .15s ease; }
+.act-sound[data-sound="on"] { color: #fff; }
+.act-sound[data-sound="on"] svg { animation: sound-pulse .34s ease; }
+.act-sound[data-sound="off"] { color: rgba(255, 255, 255, .72); }
+/* Marca de "cortado" no icone, sem depender so da cor. */
+.act-sound[data-sound="off"]::after {
+  content: ''; position: absolute; left: 50%; top: 46%;
+  width: 26px; height: 2px; border-radius: 2px;
+  background: currentColor; transform: translate(-50%, -50%) rotate(-38deg);
+  opacity: .9; pointer-events: none;
+}
+@keyframes sound-pulse {
+  0% { transform: scale(.86); }
+  55% { transform: scale(1.14); }
+  100% { transform: scale(1); }
+}
+.act .pulse-ring { position: absolute; }
+.act-wrap { position: relative; display: grid; place-items: center; }
+
+.slide-progress {
+  position: absolute; left: 0; bottom: 0; height: 3px; background: var(--brand);
+  width: 0; z-index: 6; transition: width .1s linear;
+}
+
+/* ---- Cards de LIVE e de republicacao no feed -------------------------
+   Posts de tipo `live` nao tem midia gravada e posts de `repost` mostram a
+   midia do post original: antes os dois caiam no placeholder "sem midia". */
+/* Post de TEXTO: o texto ocupa o slide, com margem para o bloco de autor e a
+   coluna de acoes nao cobrirem as palavras. */
+/* ---- Publicacao so com AUDIO (item 16) -------------------------------
+   Um post de audio nao tem imagem: o player nativo do navegador toca o
+   arquivo, e o cartao marca o tipo. Sem isto o post caia no placeholder
+   "Sem midia para exibir". */
+.slide-audio {
+  position: absolute; inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  /* Mesmo respiro do post de texto: nao invade o bloco de autor/acoes. */
+  padding: calc(96px + var(--safe-t)) 28px calc(120px + var(--tabbar-h) + var(--safe-b));
+  background:
+    radial-gradient(120% 80% at 50% 30%, color-mix(in srgb, var(--roxo) 22%, var(--preto)) 0%, var(--preto) 100%);
+}
+.slide-audio-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--brand-grad-soft);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--rosa) 40%, transparent);
+  color: var(--fg);
+  font-size: 12.5px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase;
+}
+.slide-audio-badge svg { width: 16px; height: 16px; }
+.slide-audio audio {
+  width: min(100%, 420px);
+  /* Controles nativos escuros invertidos para ficarem legiveis no fundo. */
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.slide-text-tile {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  /* Topo: safe-area + topo. Base: bloco de autor + acoes + folga. */
+  padding: calc(96px + var(--safe-t)) 76px calc(120px + var(--tabbar-h) + var(--safe-b)) 20px;
+  background: linear-gradient(160deg, var(--preto-arroxeado), var(--preto-arroxeado-2));
+}
+.slide-text {
+  max-width: 520px; max-height: 100%; overflow-y: auto;
+  text-align: center; white-space: pre-wrap; word-break: break-word;
+  font-size: 19px; font-weight: 600; line-height: 1.35; color: var(--fg);
+}
+@media (min-width: 900px) {
+  .slide-text-tile { padding: 100px 96px calc(110px + var(--safe-b)) 24px; }
+  .slide-text { font-size: 22px; }
+}
+
+.slide-live-card {
+  position: absolute; inset: 0;
+  display: grid; place-content: center; justify-items: center; gap: 14px;
+  padding: 24px; text-align: center;
+  background: radial-gradient(130% 90% at 50% 20%, color-mix(in srgb, var(--roxo) 26%, var(--preto)) 0%, var(--preto-arroxeado) 55%, var(--preto) 100%);
+}
+.slide-live-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 6px 14px; border-radius: 999px;
+  background: color-mix(in srgb, var(--brand-2) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--brand-2) 50%, transparent);
+  color: var(--brand-2); font-size: 13px; font-weight: 800; letter-spacing: .6px;
+}
+.slide-live-badge svg { width: 16px; height: 16px; }
+.slide-live-title { margin: 0; font-size: 17px; font-weight: 700; color: var(--fg); max-width: 320px; }
+
+.slide-repost-mark {
+  position: absolute; top: 12px; left: 12px; z-index: 4;
+  display: inline-flex; align-items: center; gap: 6px;
+  max-width: calc(100% - 24px);
+  padding: 5px 10px; border-radius: 999px;
+  background: rgba(0, 0, 0, .62); color: #fff; font-size: 12px; font-weight: 600;
+}
+.slide-repost-mark svg { width: 14px; height: 14px; flex: 0 0 auto; }
+.slide-repost-mark span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.slide-pause {
+  position: absolute; inset: 0; display: none; place-items: center;
+  pointer-events: none; z-index: 4;
+}
+.slide.paused .slide-pause { display: grid; }
+.slide-pause svg { width: 84px; height: 84px; color: rgba(255, 255, 255, .8); stroke-width: 1.5; filter: drop-shadow(0 2px 8px rgba(0, 0, 0, .5)); }
+
+.slide-badge-processing {
+  position: absolute; top: calc(12px + var(--safe-t)); left: 50%; transform: translateX(-50%);
+  background: rgba(0, 0, 0, .7); padding: 6px 12px; border-radius: 20px;
+  font-size: 12px; display: flex; align-items: center; gap: 6px; z-index: 6;
+}
+
+.spinner {
+  width: 15px; height: 15px; border: 2px solid rgba(255, 255, 255, .25);
+  border-top-color: var(--brand); border-radius: 50%; animation: spin .7s linear infinite;
+  flex: 0 0 auto;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.3); } 100% { transform: scale(1); } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+@keyframes floatUp { from { transform: translateY(0) scale(.6); opacity: 1; } to { transform: translateY(-100px) scale(1.1); opacity: 0; } }
+
+/* ------------------------------ Grid de videos -------------------------- */
+/* Colunas proporcionais ao aparelho: 2 no celular estreito (tile ~140px,
+   legivel), 3 no celular maior/tablet, 4 e 5 no PC. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+}
+@media (min-width: 420px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 700px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; padding: 8px; } }
+@media (min-width: 1100px) { .grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+
+.tile {
+  position: relative; display: block; aspect-ratio: 9 / 16;
+  background: var(--bg-elev); overflow: hidden; border-radius: 6px;
+  text-decoration: none; color: #fff;
+}
+@media (min-width: 700px) { .tile { border-radius: var(--radius); } }
+.tile img, .tile video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tile-fallback { display: grid; place-items: center; height: 100%; padding: 8px; font-size: 12px; text-align: center; }
+.tile-meta {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 20px 8px 6px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, .8), transparent);
+  display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600;
+  /* Sem `min-width: 0` o conteudo minimo estourava o tile e era cortado
+     (o `@usuario` + as curtidas nao cabem em ~90px). */
+  min-width: 0;
+}
+.tile-meta > .row, .tile-meta > .spacer { flex: 0 0 auto; }
+.tile-author { min-width: 0; flex: 1 1 auto; overflow: hidden; }
+.tile-author > span { min-width: 0; }
+.tile-meta svg { width: 14px; height: 14px; flex: 0 0 auto; }
+.tile-author { display: flex; align-items: center; gap: 5px; }
+.tile-author .avatar { width: 18px; height: 18px; }
+
+.row-list { display: flex; flex-direction: column; }
+.row-post {
+  display: grid; grid-template-columns: 96px 1fr; gap: 12px;
+  padding: 10px 14px; text-decoration: none; color: inherit;
+  border-bottom: 1px solid var(--line);
+}
+.row-post:hover { background: var(--bg-elev); }
+.row-thumb { position: relative; aspect-ratio: 9/16; border-radius: 8px; overflow: hidden; background: var(--bg-elev-2); }
+.row-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ------------------------------ Pagina generica ------------------------- */
+.page { padding: 14px 16px calc(24px + var(--safe-b)); max-width: 780px; margin: 0 auto; }
+.page-title { font-size: 22px; font-weight: 800; margin: 0 0 4px; }
+.page-sub { color: var(--fg-dim); font-size: 14px; margin: 0 0 16px; }
+.page-narrow { max-width: 520px; }
+.page-empty { text-align: center; padding: 48px 16px; color: var(--fg-dim); }
+
+/* Cabecalho de pagina: titulo + acoes. No celular o titulo ocupa a linha
+   inteira e as acoes ficam abaixo, lado a lado (itens 25/28). */
+.page-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; flex-wrap: wrap;
+}
+.page-head-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+@media (max-width: 560px) {
+  .page-head { flex-direction: column; align-items: stretch; gap: 10px; }
+  .page-head-actions .btn { flex: 1 1 auto; min-width: 0; }
+}
+.page-empty svg { width: 46px; height: 46px; color: var(--fg-faint); margin-bottom: 10px; }
+
+/* ------------------------------ Telas de autenticacao ------------------ */
+/* Pagina independente: SEM sidebar, SEM topbar, SEM tabbar, SEM botao de
+   voltar. A tela de login/cadastro ocupa a janela inteira (item 3). */
+body.auth-only .sidebar,
+body.auth-only .topbar,
+body.auth-only .tabbar,
+body.auth-only #topbar-actions,
+body.auth-only .side-footer { display: none !important; }
+
+body.auth-only .app { display: block; min-height: 100dvh; }
+body.auth-only .main-wrap { display: block; }
+body.auth-only .main {
+  display: block; min-height: 100dvh; min-height: 100vh;
+  padding: 0; overflow: visible;
+}
+
+/* Brilho decorativo suave atras do cartao central. */
+.auth-page-art {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+}
+.auth-page-art::before,
+.auth-page-art::after {
+  content: ''; position: absolute; border-radius: 50%;
+  filter: blur(90px); opacity: .34;
+}
+.auth-page-art::before {
+  width: 420px; height: 420px; top: -140px; left: -120px;
+  background: radial-gradient(circle, var(--roxo) 0%, transparent 68%);
+}
+.auth-page-art::after {
+  width: 380px; height: 380px; bottom: -130px; right: -110px;
+  background: radial-gradient(circle, var(--vermelho) 0%, transparent 68%);
+}
+
+.auth-wrap {
+  min-height: 100dvh; min-height: 100vh;
+  display: grid; place-items: center;
+  padding: calc(24px + var(--safe-t)) 20px calc(24px + var(--safe-b));
+  position: relative; z-index: 1;
+}
+.auth-card { width: 100%; max-width: 400px; }
+
+/* ---- Logo: coracao animado + wordmark --------------------------------- */
+.brand-logo {
+  display: grid; justify-items: center; gap: 10px;
+  margin: 0 auto 14px; text-align: center;
+}
+.brand-heart {
+  width: 68px; height: 62px;
+  filter: drop-shadow(0 6px 18px rgba(236, 72, 153, .38));
+  /* Entrada suave */
+  animation: heart-enter .7s cubic-bezier(.22, 1.2, .36, 1) both,
+             heart-beat 2.6s 1s ease-in-out infinite;
+  transform-origin: 50% 60%;
+  will-change: transform;
+}
+.brand-wordmark {
+  font-size: 27px; font-weight: 900; letter-spacing: 5px;
+  background: var(--brand-grad);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: wordmark-enter .8s .12s ease-out both;
+}
+
+/* Duas animacoes no mesmo elemento (entrada + pulso) -> uma unica keyframe
+   roda na wrapper; aqui usamos entradas separadas para nao sobrescrever
+   `transform` entre si. O wrapper controla a entrada, o SVG o pulso. */
+.brand-logo { animation: heart-enter .7s cubic-bezier(.22, 1.2, .36, 1) both; }
+.brand-heart { animation: heart-beat 2.6s .8s ease-in-out infinite; }
+
+@keyframes heart-enter {
+  from { opacity: 0; transform: translateY(10px) scale(.88); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes wordmark-enter {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* Pulso/respiracao discreto: duas batidas suaves por ciclo. */
+@keyframes heart-beat {
+  0%, 100% { transform: scale(1); }
+  12%      { transform: scale(1.075); }
+  24%      { transform: scale(1); }
+  36%      { transform: scale(1.055); }
+  48%      { transform: scale(1); }
+}
+/* Quem pediu menos movimento ve a interface sem animacao (item 12).
+   Este bloco e unico e amplo de proposito: em vez de repetir
+   `prefers-reduced-motion` em cada regra nova, qualquer animacao aqui
+   declarada e desligada de uma vez. Os estados continuam visiveis - some o
+   MOVIMENTO, nunca a informacao. */
+@media (prefers-reduced-motion: reduce) {
+  .brand-logo, .brand-heart, .brand-wordmark { animation: none !important; }
+
+  /* Entradas de painel, toast, mensagem e linha de tabela: sem deslocamento. */
+  .sheet-panel, .toast, .msg, .admin-row, .modal, .page-empty { animation: none !important; }
+
+  /* Pulsos e batidas que ficam repetindo: param de piscar. O `spinner` fica
+     de fora de proposito - sem a rotacao ele vira um circulo vazio e o usuario
+     perde a informacao "carregando". */
+  .live-dot, .live-pill.live-dot-item i, .admin-live[data-state] i,
+  .online-dot { animation-duration: 0s !important; animation-iteration-count: 1 !important; }
+
+  /* Corao deitre (puramente decorativo): some o voo. A contagem de coracoes
+     continua correta porque ela vem do realtime, nao da animacao. */
+  #live-hearts .flying-heart, .heart-rise { animation: none !important; display: none !important; }
+
+  /* Os EFEITOS da LIVE NAO sao escondidos: sao a interacao, nao enfeite. O que
+     deixa de acontecer e o movimento em CSS em volta deles. */
+  #live-effects .effect-instance { animation: none !important; }
+
+  /* Transicoes de cor e de estado: viram mudanca imediata. */
+  *, *::before, *::after {
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.auth-logo { font-size: 34px; font-weight: 900; letter-spacing: 6px; text-align: center; margin-bottom: 6px; background: var(--brand-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.auth-tag { text-align: center; color: var(--fg-dim); margin-bottom: 24px; font-size: 14px; }
+.auth-alt { text-align: center; margin-top: 16px; font-size: 14px; color: var(--fg-dim); }
+.auth-error { background: color-mix(in srgb, var(--danger) 20%, transparent); border: 1px solid var(--danger); color: var(--fg); padding: 10px 12px; border-radius: 10px; font-size: 13.5px; margin-bottom: 14px; }
+.auth-subtitle { text-align: center; color: var(--fg-faint); font-size: 13px; margin: -4px 0 4px; }
+.auth-note {
+  margin: 12px 0 0; font-size: 13px; line-height: 1.45;
+  padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--bg-elev); color: var(--fg-dim);
+}
+.auth-note.is-ok { border-color: var(--ok); color: var(--fg); }
+.auth-note.is-warn { border-color: var(--warn); color: var(--fg); }
+
+/* ------------------------------ Perfil ---------------------------------- */
+.profile-cover {
+  height: 130px; background: var(--bg-elev-2);
+  background-size: cover; background-position: center;
+}
+@media (min-width: 700px) { .profile-cover { height: 190px; } }
+.profile-cover { position: relative; }
+/* Botao "Alterar capa" sobre a propria capa. */
+.profile-cover-edit {
+  position: absolute; right: 10px; bottom: 10px;
+  background: rgba(0, 0, 0, .58); color: #fff;
+  border: 1px solid rgba(255, 255, 255, .28); backdrop-filter: blur(6px);
+}
+.profile-cover-edit:hover { background: rgba(0, 0, 0, .74); }
+/* Botao de camera sobre a foto de perfil. */
+.profile-avatar-edit {
+  position: absolute; right: -2px; bottom: -2px;
+  width: 30px; height: 30px; padding: 0;
+  border-radius: 50%; border: 2px solid var(--bg);
+  background: var(--brand-grad); color: #fff;
+  display: grid; place-items: center; cursor: pointer;
+  transition: transform .12s ease, filter .12s ease;
+}
+.profile-avatar-edit svg { width: 15px; height: 15px; }
+.profile-avatar-edit:hover { transform: scale(1.08); filter: brightness(1.1); }
+@media (min-width: 700px) {
+  .profile-avatar-edit { width: 34px; height: 34px; }
+  .profile-avatar-edit svg { width: 17px; height: 17px; }
+}
+.profile-head { padding: 0 16px; }
+.profile-row { display: flex; align-items: flex-end; gap: 14px; margin-top: -38px; }
+.profile-row .avatar.lg {
+  width: 82px; height: 82px; border: 4px solid var(--bg); border-radius: 50%;
+  background: var(--bg);
+}
+.profile-actions { margin-left: auto; display: flex; gap: 8px; padding-bottom: 8px; flex-wrap: wrap; justify-content: flex-end; min-width: 0; }
+.profile-name { font-size: 19px; font-weight: 800; margin: 10px 0 0; overflow-wrap: anywhere; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+/* Badge de conta verificada: SVG do catalogo de icones (item 20). */
+.profile-verified {
+  display: inline-grid; place-items: center; flex: 0 0 auto;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: color-mix(in srgb, var(--brand) 22%, transparent);
+  color: var(--brand);
+}
+.profile-verified svg { width: 12px; height: 12px; stroke-width: 3; }
+.profile-user { color: var(--fg-dim); font-size: 14px; overflow-wrap: anywhere; }
+.profile-bio { margin: 10px 0; font-size: 14px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.profile-stats { display: flex; gap: 18px; margin: 12px 0; flex-wrap: wrap; }
+.profile-stat { font-size: 14px; color: var(--fg-dim); }
+.profile-stat b { color: var(--fg); font-size: 15px; }
+
+/* Abas do perfil: faixa com rolagem horizontal. Com 6 abas, `flex: 1` nao
+   cabe em 320px e os ultimos botoes saiam da tela (itens 16/17). */
+/* Grade de abas do perfil (item 11).
+   As quatro opcoes (Videos, Curtidas, Reposts, Privacidade) dividem a largura
+   disponivel em PARTES IGUAIS e cabem numa unica linha de 320px. Sem
+   `overflow-x`, sem carrossel, sem `min-width` fixo - e o que fazia o
+   usuario ter que arrastar a grade no celular.
+
+   Cada aba e um bloco compacto com ICONE ACIMA e ROTULO ABAIXO (o padrao de
+   barra de abas). Na disposicao em linha, "Privacidade" nao cabia ao lado do
+   icone em 390px e o rotulo saia cortado ("Privaci...") - que e exatamente o
+   que o item 13 proibe. Empilhando, o rotulo inteiro cabe desde 320px e a
+   linha continua sendo uma unica. */
+.profile-tabs {
+  display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-top: 12px;
+  width: 100%; min-width: 0;
+}
+.profile-tabs::-webkit-scrollbar { display: none; }
+.profile-tab {
+  /* `1 1 0` = todas comecam com a MESMA base (0) e crescem igual: e o que
+     distribui proporcionalmente em vez de encolher so a ultima. */
+  flex: 1 1 0; min-width: 0; padding: 8px 2px 9px;
+  border: none; background: none; color: var(--fg-dim);
+  font: inherit; font-size: 11px; font-weight: 600; cursor: pointer; white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  /* `column` = icone em cima, rotulo embaixo; `align-items: center` mantem
+     tudo na mesma linha de base dentro da coluna. */
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 3px; overflow: hidden;
+}
+.profile-tab svg { flex: 0 0 auto; width: 20px; height: 20px; }
+/* Rotulo + contador em uma unica linha de texto (o contador nao pode gerar
+   uma segunda linha dentro da aba). */
+.profile-tab-text {
+  display: flex; align-items: baseline; justify-content: center; gap: 2px;
+  max-width: 100%; min-width: 0; line-height: 1.15;
+}
+.profile-tab-label {
+  overflow: hidden; text-overflow: ellipsis; min-width: 0;
+  max-width: 100%; letter-spacing: .1px;
+}
+/* O contador fica ao lado do rotulo e bem pequeno; abaixo de 380px ele some
+   (o numero continua visivel nos contadores acima da grade). */
+.profile-tab-count { font-size: 9.5px; opacity: .7; font-variant-numeric: tabular-nums; flex: 0 0 auto; }
+.profile-tab[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--fg); }
+@media (max-width: 380px) {
+  .profile-tab { font-size: 10px; gap: 2px; padding: 7px 1px 8px; }
+  .profile-tab svg { width: 18px; height: 18px; }
+  .profile-tab-count { display: none; }
+}
+/* A partir de 700px ha largura de sobra: volta para rotulo ao lado do icone,
+   que le melhor em tela grande. */
+@media (min-width: 700px) {
+  .profile-tab { flex-direction: row; gap: 7px; padding: 12px 8px; font-size: 13.5px; }
+  .profile-tab svg { width: 17px; height: 17px; }
+  .profile-tab-count { display: inline; font-size: 10.5px; }
+}
+/* Perfil no celular: os botoes de acao ganham a linha inteira abaixo do
+   avatar, em vez de disputarem espaco com ele (evita sobreposicao). */
+@media (max-width: 560px) {
+  .profile-head { padding: 0 14px; }
+  .profile-row { flex-wrap: wrap; align-items: center; margin-top: -32px; gap: 10px; }
+  .profile-actions {
+    width: 100%; margin-left: 0; padding: 0 0 6px;
+    justify-content: stretch; gap: 8px;
+  }
+  .profile-actions .btn { flex: 1 1 auto; min-height: 44px; }
+  .profile-name { font-size: 18px; }
+  .profile-stats { gap: 14px; }
+}
+
+/* ------------------------------ Stories --------------------------------- */
+.story-tray { display: flex; gap: 12px; overflow-x: auto; padding: 12px 14px; scrollbar-width: none; }
+.story-tray::-webkit-scrollbar { display: none; }
+.story {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  flex: 0 0 auto; width: 68px; border: none; background: none; cursor: pointer; color: inherit; padding: 0;
+}
+.story-ring {
+  width: 64px; height: 64px; border-radius: 50%; padding: 2.5px;
+  background: conic-gradient(from 200deg, var(--brand), var(--brand-2), var(--brand));
+  display: grid; place-items: center;
+}
+.story.seen .story-ring { background: var(--bg-input); }
+.story-inner {
+  width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
+  background: var(--bg-elev-2); border: 2px solid var(--bg);
+  display: grid; place-items: center; position: relative;
+}
+.story-inner img { width: 100%; height: 100%; object-fit: cover; }
+.story-add {
+  position: absolute; right: -2px; bottom: -2px; width: 20px; height: 20px;
+  border-radius: 50%; background: var(--brand-2); color: #fff;
+  display: grid; place-items: center; font-size: 13px; font-weight: 700;
+  border: 2px solid var(--bg);
+}
+.story-label {
+  font-size: 11px; max-width: 100%; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; color: var(--fg-dim);
+}
+
+.story-viewer { position: fixed; inset: 0; z-index: 300; background: #000; display: grid; place-items: center; }
+.story-stage { position: relative; width: 100%; height: 100dvh; max-width: 480px; background: #111; display: grid; place-items: center; overflow: hidden; }
+.story-stage img, .story-stage video { width: 100%; height: 100%; object-fit: contain; }
+.story-text {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  padding: 60px 24px; text-align: center; font-size: 22px; font-weight: 700;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, .6);
+}
+.story-bar { position: absolute; top: calc(8px + var(--safe-t)); left: 8px; right: 8px; display: flex; gap: 4px; }
+.story-bar i { flex: 1; height: 2.5px; background: rgba(255, 255, 255, .3); border-radius: 2px; overflow: hidden; }
+.story-bar i b { display: block; height: 100%; background: #fff; width: 0; }
+.story-top { position: absolute; top: calc(20px + var(--safe-t)); left: 12px; right: 12px; display: flex; align-items: center; gap: 10px; }
+.story-close { position: absolute; top: calc(20px + var(--safe-t)); right: 12px; }
+
+/* ------------------------------ Comentarios ----------------------------- */
+.sheet {
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; align-items: flex-end; justify-content: center;
+  background: rgba(0, 0, 0, .55);
+}
+.sheet-panel {
+  width: 100%; max-width: 520px; max-height: 86dvh;
+  background: var(--bg-elev); border-radius: 18px 18px 0 0;
+  display: flex; flex-direction: column; animation: sheetUp .22s ease;
+}
+@media (min-width: 700px) { .sheet { align-items: center; } .sheet-panel { border-radius: 18px; max-height: 84dvh; } }
+@keyframes sheetUp { from { transform: translateY(24px); opacity: .6; } to { transform: none; opacity: 1; } }
+.sheet-head {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px; border-bottom: 1px solid var(--line); position: relative; flex: 0 0 auto;
+}
+.sheet-head strong { font-size: 15px; }
+.sheet-head .sheet-close { position: absolute; right: 10px; }
+.sheet-body { flex: 1 1 auto; overflow-y: auto; padding: 12px 14px; -webkit-overflow-scrolling: touch; }
+.sheet-foot { flex: 0 0 auto; border-top: 1px solid var(--line); padding: 10px 12px calc(10px + var(--safe-b)); }
+
+.comment { display: flex; gap: 10px; padding: 8px 0; }
+.comment-body { flex: 1 1 auto; min-width: 0; }
+.comment-name { font-size: 12.5px; color: var(--fg-faint); }
+.comment-text { font-size: 14.5px; word-break: break-word; white-space: pre-wrap; }
+.comment-actions { display: flex; gap: 14px; margin-top: 4px; font-size: 12px; color: var(--fg-faint); align-items: center; }
+.comment-actions button { border: none; background: none; color: inherit; cursor: pointer; font: inherit; padding: 0; }
+.comment-actions button.on { color: var(--like); font-weight: 700; }
+.comment-deleted { color: var(--fg-faint); font-style: italic; }
+
+.composer {
+  display: flex; align-items: flex-end; gap: 8px;
+  background: var(--bg-input); border-radius: 22px; padding: 6px 8px 6px 14px;
+  /* `min-width: 0` + `width: 100%`: sem isso os botoes/textarea mantinham o
+     min-content e o campo saia da tela em 320/360px (itens 23/24). */
+  min-width: 0; width: 100%;
+}
+.composer textarea {
+  flex: 1 1 auto; min-width: 0; border: none; background: none; color: var(--fg);
+  font: inherit; font-size: 15px; resize: none; max-height: 110px; padding: 8px 0; line-height: 1.4;
+}
+.composer textarea:focus { outline: none; }
+.composer .send { width: 36px; height: 36px; border-radius: 50%; border: none; background: var(--brand-2); color: #fff; display: grid; place-items: center; cursor: pointer; flex: 0 0 auto; }
+.composer .send:disabled { opacity: .4; }
+
+/* ------------------------------ Emojis / GIF ---------------------------- */
+/* Seletor de GIF/figurinha (itens 5 e 9).
+   Regra do produto: painel COMPACTO e flutuante. No desktop fica entre
+   360 e 420px de largura; no celular acompanha a largura da tela sem
+   ultrapassar a viewport. Em nenhum dos casos ocupa a tela inteira - a altura
+   e limitada por `max-height` em `dvh` e tambem re-limitada em JS
+   (`anchorToViewport`), que conhece o espaco real acima e abaixo do botao. */
+.picker-panel {
+  background: var(--bg-elev); border: 1px solid var(--line); border-radius: 14px;
+  width: min(400px, calc(100vw - 16px));
+  max-width: 100%;
+  /* `--picker-teto` e a RESERVA do CSS, declarada maior que o limite real (55%
+     da altura visivel, que o JS calcula em `anchorToViewport`): assim o valor
+     em JS e sempre o que vale e o CSS so entra se o JS nao rodar. Nao ler a
+     altura renderizada como teto - com a grade vazia isso prende o painel em
+     poucos pixels. */
+  --picker-teto: min(58dvh, 430px);
+  max-height: var(--picker-teto);
+  display: flex; flex-direction: column; overflow: hidden;
+  margin: 0 auto;
+  /* Sombra que separa do texto de tras sem pesar. */
+  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, .55), 0 0 0 1px var(--line-forte);
+}
+@media (min-width: 700px) {
+  .picker-panel {
+    width: min(400px, calc(100vw - 24px));
+    --picker-teto: min(58dvh, 520px);
+    max-height: var(--picker-teto);
+  }
+}
+
+/* Menu do botao de ANEXO (itens 1 e 2).
+   O painel eancorado pelo MESMO `anchorToViewport` do seletor de emoji/GIF, que
+   o posiciona com `position: fixed`. Aqui so a caixa: largura estreita (o menu
+   tem quatro itens curtos), altura pelo conteudo e a lista rolavel se algum dia
+   crescer. Sem `max-height` grande - um menu de 4 opcoes nao deve ocupar a
+   tela. */
+.picker-panel-wrap { position: fixed; z-index: 60; }
+.picker-panel-menu {
+  width: min(260px, calc(100vw - 24px));
+  max-height: none;
+  padding: 6px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.picker-panel-menu .menu-item {
+  min-height: 44px;           /* alvo de toque folgado */
+  justify-content: flex-start;
+}
+.picker-panel-menu .menu-item span {
+  font-size: 14px; font-weight: 600;
+}
+/* Mobile (item 9): cabecalho e abas compactos, safe-area respeitada e margem
+   para o dedo. Nada de `transform: scale` - o que resolve aqui e a estrutura:
+   a grade usa `auto-fill` com minimo menor, entao o numero de colunas muda
+   conforme a largura e nenhum item sai da tela. */
+@media (max-width: 699px) {
+  .picker-panel {
+    width: calc(100vw - 16px);
+    max-width: calc(100vw - 16px);
+    --picker-teto: min(58dvh, 420px);
+    max-height: var(--picker-teto);
+    border-radius: 14px;
+    margin-bottom: var(--safe-b);
+  }
+  /* 320px: 4 colunas de ~66px. 414px: 5 colunas de ~76px. Proporcional. */
+  .picker-grid { grid-template-columns: repeat(auto-fill, minmax(62px, 1fr)); gap: 5px; padding: 6px; }
+  .picker-tabs { padding: 5px 6px; gap: 3px; }
+  .picker-tabs button { padding: 6px 9px; font-size: 12.5px; }
+  .picker-search { padding: 6px; }
+  .picker-search .input { height: 34px; }
+}
+
+.picker-tabs {
+  display: flex; gap: 2px; padding: 6px; border-bottom: 1px solid var(--line);
+  overflow-x: auto; scrollbar-width: none;
+}
+.picker-tabs::-webkit-scrollbar { display: none; }
+.picker-tabs button {
+  padding: 7px 12px; border: none; background: none; color: var(--fg-dim);
+  border-radius: 8px; font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; white-space: nowrap;
+  flex: 0 0 auto;
+}
+.picker-tabs button[aria-selected="true"] { background: var(--bg-input); color: var(--fg); }
+.picker-search { padding: 8px; border-bottom: 1px solid var(--line); }
+.picker-grid {
+  display: grid; gap: 4px; padding: 8px; overflow-y: auto; flex: 1 1 auto;
+  /* O grid rola sozinho; sem isto ele empurrava o painel em vez de caber. */
+  min-height: 0; overscroll-behavior: contain;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+}
+.picker-grid button {
+  aspect-ratio: 1; border: none; background: none; border-radius: 8px;
+  font-size: 26px; cursor: pointer; display: grid; place-items: center; padding: 0;
+}
+.picker-grid button:hover { background: var(--bg-input); }
+.picker-grid img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; display: block; }
+
+/* Card de GIF/sticker (itens 17/18).
+   Celula quadrada com `overflow:hidden`, imagem ocupando tudo. Sem isto a
+   celula crescia sem limite e a imagem ficava espremida. */
+@media (min-width: 700px) {
+  .picker-grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 6px; }
+}
+.picker-cell {
+  position: relative; width: 100%; aspect-ratio: 1;
+  overflow: hidden; border-radius: 10px; padding: 0;
+  background: var(--bg-elev-2); border: 1px solid var(--line);
+  display: block; cursor: pointer;
+}
+/* `object-fit: cover` + `aspect-ratio` na celula: a thumbnail NUNCA distorce,
+   por mais alta que seja a imagem original. */
+.picker-cell img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 0; }
+/* Fallback compacto quando a imagem nao carrega. */
+.picker-cell.is-broken {
+  background: repeating-linear-gradient(45deg, var(--bg-elev-2) 0 6px, var(--bg-elev) 6px 12px);
+}
+.picker-cell.is-broken::after {
+  content: 'GIF'; position: absolute; inset: 0;
+  display: grid; place-items: center;
+  font-size: 11px; font-weight: 700; letter-spacing: .5px; color: var(--fg-faint);
+}
+.picker-cell[data-kind="sticker"].is-broken::after { content: 'STICKER'; font-size: 9px; }
+.picker-note { padding: 16px 12px; text-align: center; color: var(--fg-dim); font-size: 13px; }
+.picker-foot { padding: 8px; border-top: 1px solid var(--line); display: flex; gap: 8px; }
+
+/* ------------------------------ Chat ------------------------------------ */
+/* No celular, lista e conversa sao telas separadas: quando a conversa abre,
+   a lista sai de cena. Sem isso a thread ficava fora da tela (item 24). */
+/* Inbox/chat: a pagina ocupa a altura util real (topo + tabbar + safe-area).
+   Sem isso o campo de mensagem ficava embaixo da bottom nav (item 24). */
+/* ==================================================================
+   Chats: altura pela viewport REAL (item 30)
+   `--chat-vh` e publicada por `core/viewport.js` a partir do
+   `visualViewport`; o `100dvh` fica SO como reserva para antes do JS rodar.
+   Sem isso, abrir o teclado (que encolhe `visualViewport` e NAO o `dvh`)
+   deixava a pagina mais alta que a tela: o documento passava a rolar e o
+   gesto de arrastar revelava o fundo preto embaixo da barra de mensagens.
+   ================================================================== */
+.inbox-page,
+.chat-page {
+  /* `--chat-vh` vem de `core/viewport.js` (altura REAL da viewport visivel,
+     com o teclado ja descontado). O `100dvh` fica como reserva para o
+     instante antes do JS rodar - e so isso. */
+  --chat-altura: calc(var(--chat-vh, 100dvh) - var(--topbar-h) - var(--safe-t) - var(--tabbar-h) - var(--safe-b));
+  display: flex; flex-direction: column; min-height: 0;
+  height: var(--chat-altura);
+}
+.inbox-page > .row { flex: 0 0 auto; }
+.chat-layout { display: flex; flex: 1 1 auto; min-height: 0; }
+@media (min-width: 1024px) {
+  /* A partir de 1024px a tabbar some (a sidebar assume) e a altura volta. */
+  .inbox-page,
+  .chat-page {
+    --chat-altura: calc(var(--chat-vh, 100dvh) - var(--topbar-h) - var(--safe-t));
+    height: var(--chat-altura);
+  }
+  /* Sem tabbar na tela, a safe-area precisa voltar para a barra de mensagens. */
+  .chat-foot { --chat-foot-b: calc(8px + var(--safe-b)); }
+}
+.chat-layout:has(.chat-thread.open) .chat-list { display: none; }
+.chat-layout:has(.chat-thread.open) > .grow { flex: 1 1 100%; min-width: 0; }
+.chat-list {
+  width: 100%; flex: 0 0 100%; border-right: 1px solid var(--line);
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain; min-height: 0;
+}
+@media (min-width: 900px) {
+  .chat-list { display: block; flex: 0 0 320px; }
+  .chat-layout:has(.chat-thread.open) .chat-list { display: block; }
+  .chat-layout:has(.chat-thread.open) > .grow { flex: 1 1 auto; }
+}
+.chat-thread { display: none; flex: 1 1 auto; min-width: 0; flex-direction: column; }
+.chat-thread.open { display: flex; }
+.chat-thread-head {
+  display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+  border-bottom: 1px solid var(--line); flex: 0 0 auto; min-width: 0;
+}
+.chat-thread-head .grow { min-width: 0; }
+/* `gap` e ZERO de proposito: o espaco entre mensagens vem do `margin-bottom`
+   de cada `.msg`, porque o agrupamento precisa encurta-lo via
+   `.msg:has(+ .msg-agrupo)`. Com um `gap` fixo aqui, o vao minimo do grupo
+   virava 2px + gap e o agrupamento nao encurtava nada. */
+.chat-thread-body {
+  flex: 1 1 auto; overflow-y: auto; padding: 14px 12px;
+  display: flex; flex-direction: column; gap: 0;
+  /* Item 30: `overscroll-behavior: contain` impede que o gesto de arrastar no
+     limite da lista "puxe" o documento junto (rubber-band). Sem isto, no
+     celular, arrastar para baixo no fim da lista revelava o fundo da pagina
+     abaixo da barra de mensagens. */
+  overscroll-behavior: contain;
+  /* O flex precisa de `min-height: 0` para encolher dentro da coluna; sem isso
+     o corpo cresce ate a altura do conteudo e empurra o composer para fora. */
+  min-height: 0;
+  -webkit-overflow-scrolling: touch;
+}
+/* Ultima mensagem nunca empurra a barra inferior com margem sobrando. */
+.chat-thread-body > .msg:last-child { margin-bottom: 0; }
+/* ==================================================================
+   Mensagens privadas (item 4)
+   - MINHA mensagem: direita, bolha com o gradiente rosa/roxo da marca.
+   - DA OUTRA PESSOA: esquerda, bolha azul.
+   - O LADO vem do ID do remetente (`isMine`), nunca da ordem do texto.
+   ================================================================== */
+.msg {
+  display: flex; gap: 8px; max-width: 78%; align-items: flex-end;
+  /* Espacamento consistente entre mensagens (item 4). O agrupamento
+     (`msg-agrupo`) reduz este vao sem colar as bolhas. */
+  margin-bottom: 10px;
+}
+.msg.mine {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+  margin-left: auto;
+}
+.msg:not(.mine) { align-self: flex-start; margin-right: auto; }
+
+/* Mensagens consecutivas do mesmo remetente formam um grupo. `.msg-agrupo`
+   marca a CONTINUACAO, entao quem precisa encurtar e a mensagem de ANTES
+   (`msg-agrupo` nao muda o proprio vao para tras, que separa grupos
+   diferentes). `:has(+ ...)` e o que expressa isso sem script. */
+.msg-agrupo { margin-bottom: 10px; }
+.msg:has(+ .msg-agrupo) { margin-bottom: 2px; }
+/* O avatar so aparece na primeira do grupo: na continuacao o espaco fica
+   (`visibility`) para as bolhas continuarem alinhadas. */
+.msg-agrupo .avatar { visibility: hidden; }
+.msg-agrupo .msg-bubble { border-radius: 18px; }
+.msg-agrupo.mine .msg-bubble { border-top-right-radius: 6px; }
+.msg-agrupo:not(.mine) .msg-bubble { border-top-left-radius: 6px; }
+/* Reserva de navegador antigo sem `:has()`: sem isso as mensagens do mesmo
+   autor ficam com o vao normal, que ainda e legivel. */
+@supports not selector(:has(*)) {
+  .msg-agrupo { margin-bottom: 2px; }
+}
+
+.msg-bubble {
+  padding: 8px 12px; border-radius: 18px; background: var(--bg-elev-2);
+  color: var(--fg);
+  font-size: 14.5px; word-break: break-word; white-space: pre-wrap; position: relative;
+  /* Transicao curta e suave (item 12): sem entrada elaborada, so cor/sombra. */
+  transition: background-color .16s ease, box-shadow .16s ease;
+}
+/* DA OUTRA PESSOA: azul, lado esquerdo. */
+.msg:not(.mine) .msg-bubble {
+  background: var(--azul-grad);
+  color: var(--on-azul);
+  border-bottom-left-radius: 6px;
+}
+/* MINHA: gradiente rosa/roxo, lado direito. */
+.msg.mine .msg-bubble {
+  background: var(--brand-grad);
+  color: var(--on-brand);
+  border-bottom-right-radius: 6px;
+}
+/* Com avatar só na primeira do grupo, a bolha "encosta" nele. */
+.msg:not(.mine) .avatar { flex: 0 0 auto; }
+.msg:not(.msg-agrupo) .avatar { margin-bottom: 2px; }
+/* A ultima do grupo alinha o avatar com a BOLHA (que e mais alta por causa da
+   hora); sem isto o avatar fica boiando acima do meio. */
+.msg:has(+ .msg-agrupo) .avatar { align-self: flex-end; margin-bottom: 2px; }
+.msg-media { border-radius: 14px; overflow: hidden; max-width: 260px; }
+.msg-media img, .msg-media video { display: block; width: 100%; height: auto; max-height: 340px; object-fit: cover; }
+.msg-time { font-size: 10px; opacity: .6; margin-top: 3px; }
+.msg-state { font-size: 10px; opacity: .7; margin-left: 5px; }
+/* Dentro da bolha colorida o rodape precisa de um pouco mais de corpo e de
+   um espaco proprio: com o mesmo `opacity` do cinza, "entregue" sumia no
+   gradiente e parecia estar fora da mensagem. */
+.msg.mine .msg-time,
+.msg:not(.mine) .msg-time { opacity: .82; }
+.msg.mine .msg-state,
+.msg:not(.mine) .msg-state { opacity: .9; }
+.msg-hora[hidden] { display: none; }
+.msg-deleted { font-style: italic; opacity: .6; }
+
+/* ==================================================================
+   Player de audio com duracao REAL (itens 7 e 8)
+   Mesmo componente na conversa privada e no comentario: um estilo so.
+   ================================================================== */
+.ab {
+  display: flex; align-items: center; gap: 9px;
+  min-width: 190px; max-width: 260px;
+  padding: 5px 8px; border-radius: 12px;
+  /* Sobre a bolha colorida o player usa um branco translucido (e nao preto):
+     um bloco escuro dentro de um bubble rosa/roxo se lia como se estivesse
+     FORA da mensagem. */
+  background: rgba(255, 255, 255, .18);
+  color: inherit;
+}
+.comment-media .ab { background: var(--bg-elev-2); color: var(--fg); border: 1px solid var(--line); }
+/* O <audio> real fica na tela (nao `display:none`) para continuar sendo
+   baixavel e acessível; os controles visiveis sao os daqui. */
+.ab .ab-native { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+
+.ab-play {
+  flex: 0 0 auto; width: 32px; height: 32px; border-radius: 50%;
+  display: grid; place-items: center;
+  /* Sobre o branco translucido do player, o botao precisa de um fundo um pouco
+     mais escuro para o icone branco nao sumir. */
+  background: rgba(0, 0, 0, .28); color: inherit;
+  border: 1px solid rgba(255, 255, 255, .3);
+  transition: background-color .14s ease, transform .1s ease;
+}
+.ab-play:hover { background: rgba(0, 0, 0, .42); }
+.ab-play:active { transform: scale(.94); }
+.ab-play:disabled { opacity: .5; }
+.ab-play svg { width: 16px; height: 16px; fill: currentColor; }
+
+.ab-ondras {
+  flex: 0 0 auto; width: 3px; height: 20px; border-radius: 2px;
+  background: currentColor; opacity: .55;
+}
+/* "Ouvindo": barras animadas. So enquanto toca - e movimento com proposito
+   (nao e decoracao parada), respeitando prefers-reduced-motion. */
+.ab-ondras.ab-ativo { animation: ab-wave .9s ease-in-out infinite; }
+.ab-ondras.ab-erro { background: var(--vermelho); opacity: 1; }
+@keyframes ab-wave {
+  0%, 100% { transform: scaleY(.35); }
+  50% { transform: scaleY(1); }
+}
+
+.ab-corpo { flex: 1 1 auto; min-width: 0; }
+.ab-track {
+  height: 6px; border-radius: 3px; cursor: pointer;
+  background: rgba(0, 0, 0, .22);
+  overflow: hidden; position: relative;
+}
+.comment-media .ab-track { background: var(--line-forte); }
+.ab-fill { height: 100%; width: var(--ab-pct, 0%); background: currentColor; border-radius: 3px; transition: width .12s linear; }
+.ab-track:focus-visible { outline: 2px solid var(--brand-3); outline-offset: 2px; }
+
+.ab-tempos {
+  display: flex; justify-content: space-between; gap: 8px;
+  margin-top: 3px; font-size: 11px; font-variant-numeric: tabular-nums; opacity: .9;
+}
+.ab-dur { font-weight: 600; }
+
+.ab-download {
+  flex: 0 0 auto; width: 28px; height: 28px; border-radius: 8px;
+  display: grid; place-items: center; color: inherit; opacity: .8;
+  border: 1px solid transparent;
+}
+.ab-download:hover { opacity: 1; border-color: currentColor; }
+.ab-download svg { width: 15px; height: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ab-ondras.ab-ativo { animation: none; transform: scaleY(.7); }
+  .ab-fill { transition: none; }
+  .ab-play, .msg-bubble { transition: none; }
+}
+
+/* Anexo que nao carregou (item 6): aviso VISIVEL, nunca silencio. */
+.media-broken {
+  margin: 0; padding: 8px 10px; border-radius: 10px;
+  border: 1px dashed var(--line-forte); color: var(--fg-dim);
+  background: var(--bg-elev-2); word-break: break-all;
+}
+.msg-reply { border-left: 2px solid var(--brand); padding-left: 8px; margin-bottom: 5px; font-size: 12.5px; opacity: .85; }
+.msg-audio { display: flex; align-items: center; gap: 8px; }
+.msg-audio audio { max-width: 200px; height: 34px; }
+/* Campo de mensagem: preso na base da tela, acima da bottom nav (item 24). */
+.chat-foot {
+  flex: 0 0 auto; border-top: 1px solid var(--line);
+  /* Item 30 (CAUSA RAIZ do vazio preto): o `safe-b` NAO entra aqui enquanto a
+     bottom navigation existe - a `.tabbar` ja reserva `tabbar-h + safe-b` logo
+     abaixo. Somar os dois deixava uma faixa morta de `safe-b` (34px em um
+     iPhone) entre o composer e a tabbar, pintada com o fundo da pagina: e
+     exatamente a "area preta vazia abaixo dos botoes de mensagem". Sem tabbar
+     (>=1024px) a folga volta a ser necessaria. */
+  padding: 8px 10px var(--chat-foot-b, 8px);
+  display: flex; gap: 6px; align-items: flex-end;
+}
+.chat-foot .composer { flex: 1 1 auto; }
+.rec-indicator { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--brand-2); font-variant-numeric: tabular-nums; }
+
+/* Item 7: o Chat Global e a MESMA pagina de altura real do inbox. A regra
+   certa esta no bloco "Chats: altura pela viewport REAL" (item 30), que usa
+   `--chat-altura` (= `--chat-vh` do `core/viewport.js`).
+
+   Aqui existia uma segunda regra `.chat-page` com `height: calc(100dvh - ...)`:
+   mesma especificacao, mais abaixo no arquivo, portanto VENCIA e devolvia a
+   altura a `100dvh`. Isso e justamente o que o `100dvh` nao faz - ele responde
+   a barra de endereco, NAO ao teclado virtual. Medido em 390x844 com o teclado
+   aberto: `--chat-vh` caia para 508px e `--chat-kb` para 336px, mas o composer
+   continuava em y=719..790, ou seja, atras do teclado. A duplicata saiu e o
+   `height: 100%` de `.global-chat` tambem - ele apontava para `#main`, que
+   tambem nao encolhe com o teclado. */
+/* Item 7: este elemento tambem tem a classe `chat-page`, que ja define a
+   altura pela viewport REAL (`--chat-altura`). O `height: 100%` que existed
+   aqui vincia por ordem de cascata (mesma especificacao, mais abaixo no
+   arquivo) e travava a altura em `#main` - que NAO encolhe com o teclado
+   virtual. Medido em 390x844: com o teclado aberto `--chat-vh` caia para
+   508px e `--chat-kb` para 336px, mas o composer continuava em y=719..790,
+   ou seja, atras do teclado. Agora vale a altura medida. */
+.global-chat { display: flex; flex-direction: column; }
+.global-feed {
+  flex: 1 1 auto; overflow-y: auto; padding: 12px;
+  display: flex; flex-direction: column; gap: 10px;
+  /* Mesmo motivo do chat privado (item 30): o arrasto no limite nao pode
+     puxar o documento e revelar o fundo da pagina. */
+  overscroll-behavior: contain; min-height: 0; -webkit-overflow-scrolling: touch;
+}
+.gc-msg { display: flex; gap: 8px; }
+.gc-head { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.gc-name { font-weight: 700; font-size: 13.5px; }
+.gc-time { font-size: 11px; color: var(--fg-faint); }
+.gc-text { font-size: 14.5px; word-break: break-word; white-space: pre-wrap; }
+.online-pill {
+  display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px;
+  border-radius: 20px; background: var(--bg-elev); font-size: 12px; color: var(--fg-dim);
+}
+.online-pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
+
+/* ------------------------------ LIVE ------------------------------------ */
+.live-page {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  background: #000;
+  z-index: 60;
+  overflow: hidden;
+  /* Altura real da barra inferior, medida pelo JS (itens 10 e 11). O chat usa
+     este valor para nao passar por baixo dos controles. */
+  --live-bar-h: 56px;
+}
+
+@supports (height: 100dvh) {
+  .live-page {
+    height: 100dvh;
+    min-height: 100dvh;
+  }
+}
+
+/* ---- Diagnostico da camera (so em modo de diagnostico) -------------------
+ * Existe para responder no PROPRIO CELULAR a pergunta que os testes com
+ * camera falsa nao conseguem: o zoom esta na CAPTURA (driver/sensor) ou na
+ * EXIBICAO (object-fit/container)? Por isso ele fica num painel proprio,
+ * acima de tudo, e nunca entra no fluxo normal da LIVE.
+ */
+.live-diag {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0, 0, 0, .96);
+  color: #eaeaea; font-size: 12px; line-height: 1.35;
+  display: flex; flex-direction: column;
+  padding: calc(10px + var(--safe-t)) 10px calc(10px + var(--safe-b));
+}
+.live-diag header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,.2);
+}
+.live-diag header button {
+  font: inherit; font-weight: 700; padding: 6px 12px; border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.3); background: rgba(255,255,255,.1);
+  color: #fff; cursor: pointer;
+}
+.live-diag-corpo { overflow: auto; -webkit-overflow-scrolling: touch; padding-top: 8px; }
+.live-diag-bloco {
+  border: 1px solid rgba(255,255,255,.16); border-radius: 10px;
+  padding: 8px 10px; margin-bottom: 8px; background: rgba(255,255,255,.04);
+}
+.live-diag-bloco h4 { margin: 0 0 6px; font-size: 11px; letter-spacing: .06em; opacity: .75; }
+.live-diag-linha {
+  display: flex; justify-content: space-between; gap: 10px;
+  padding: 1px 0; border-bottom: 1px dotted rgba(255,255,255,.08);
+}
+.live-diag-linha span { opacity: .72; }
+.live-diag-linha b { font-family: ui-monospace, Menlo, Consolas, monospace; text-align: right; word-break: break-all; }
+.live-diag-veredito { border-color: rgba(255, 210, 125, .55); background: rgba(255, 210, 125, .1); }
+.live-diag-veredito b { font-size: 13px; }
+.live-diag-previa { margin-bottom: 10px; }
+.live-diag-previa h5 { margin: 0 0 4px; font-size: 11px; opacity: .8; }
+.live-diag-canvas {
+  border: 1px solid rgba(255,255,255,.2); border-radius: 8px;
+  overflow: hidden; background: #000; display: block;
+}
+.live-diag-canvas canvas { display: block; width: 100%; }
+
+/* O quadro real e rotacionado conforme a preferencia existente e sempre cobre
+   o palco. Se a proporcao diferir, o corte e intencional: nunca ha barras. */
+.live-video-wrap video.remote,
+.live-video-wrap video.local {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  object-fit: cover;
+  object-position: center;
+}
+/* O espelho da camera local e a unica transformacao permitida: inverte o eixo
+   horizontal, nao altera tamanho nem proporcao. */
+/* Ambos os videos sao posicionados pelo `ajustarEnquadramento`, e nao pelo
+ * fluxo da grade: quando ha rotacao, o elemento recebe `left`/`top` e um
+ * `width`/`height` do quadro girado, e precisa ficar absoluto para que esses
+ * valores mandem. `right`/`bottom` ficam `auto` de proposito - com `inset: 0`
+ * completo, o tamanho inline entraria em conflito e o elemento nao centralizaria.
+ *
+ * O espelho da camera local inverte o eixo horizontal; nao altera tamanho nem
+ * proporcao. */
+.live-video-wrap video.local,
+.live-video-wrap video.remote { position: absolute; inset: 0 auto auto 0; }
+.live-video-wrap video.local { transform: scaleX(-1); }
+
+.live-placeholder { text-align: center; color: var(--fg-dim); padding: 20px; }
+.live-placeholder svg { width: 54px; height: 54px; color: var(--fg-faint); margin-bottom: 12px; }
+
+/* ---- Item 6: estado da area de video -------------------------------- */
+.live-media-state {
+  position: absolute; inset: 0; z-index: 4;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 6px; padding: 24px; text-align: center;
+  background: radial-gradient(120% 80% at 50% 30%, color-mix(in srgb, var(--roxo) 22%, var(--preto)) 0%, var(--preto) 100%);
+}
+.live-media-state p { margin: 0; color: var(--fg); }
+.live-media-state[data-state='error'] { background: radial-gradient(120% 80% at 50% 30%, #2a1030 0%, #12060f 100%); }
+.live-media-state[data-state='ended'] { background: radial-gradient(120% 80% at 50% 30%, var(--preto-arroxeado) 0%, var(--preto) 100%); }
+.live-media-state .tiny.faint { max-width: 320px; }
+.live-media-icon {
+  display: grid; place-items: center; width: 64px; height: 64px; margin-bottom: 10px;
+  border-radius: 50%; background: rgba(255, 255, 255, .07); color: var(--fg-dim);
+}
+.live-media-icon svg { width: 30px; height: 30px; }
+.live-media-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; justify-content: center; }
+.live-media-actions .btn { min-width: 132px; }
+
+.live-top {
+  /* As laterais entram com o notch em paisagem: o cabecalho nao pode ficar
+     embaixo do recorte da tela do celular. */
+  position: absolute; top: calc(12px + var(--safe-t));
+  left: calc(12px + var(--safe-l)); right: calc(12px + var(--safe-r));
+  z-index: 12;
+  display: flex; align-items: flex-start; gap: 10px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, .55), transparent);
+  padding-bottom: 18px; border-radius: 12px;
+}
+.live-host { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.live-host-name { font-weight: 700; font-size: 14.5px; }
+.live-host-user { font-size: 12.5px; opacity: .85; }
+.live-viewers { display: flex; align-items: center; gap: 5px; font-size: 13px; opacity: .9; }
+.live-viewers svg { width: 16px; height: 16px; }
+.live-top-actions { margin-left: auto; display: flex; gap: 6px; }
+.live-pill {
+  display: inline-flex; align-items: center; gap: 6px; padding: 4px 9px;
+  background: rgba(0, 0, 0, .55); border-radius: 14px; font-size: 12px; font-weight: 700;
+}
+.live-pill.live-dot-item { color: #fff; }
+.live-pill.live-dot-item i { width: 8px; height: 8px; border-radius: 50%; background: var(--danger); animation: pulse 1.4s infinite; }
+
+/* Chat: fica ACIMA da barra de controles (itens 10 e 11).
+   Antes usava `bottom: 0` + `padding-bottom`, o que fazia a CAIXA do chat
+   invadir a barra mesmo com o texto deslocado. Agora a caixa termina na barra. */
+.live-chat {
+  position: absolute; left: 0; right: 0;
+  bottom: calc(var(--live-bar-h) + 8px); z-index: 10;
+  max-height: 40dvh; display: flex; flex-direction: column; justify-content: flex-end;
+  pointer-events: none;
+  padding-bottom: 4px;
+  transition: bottom .18s ease;
+}
+.live-msg {
+  display: flex; align-items: center; gap: 7px; padding: 4px 12px;
+  font-size: 13.5px; pointer-events: auto;
+  animation: msgIn .2s ease;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .8);
+}
+.live-msg[role="button"] { cursor: pointer; }
+.live-msg[role="button"]:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 8px; }
+@keyframes msgIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.live-msg .name { font-weight: 700; color: #fff; }
+.live-msg .text { color: #fff; word-break: break-word; }
+.live-msg .avatar.xs { width: 20px; height: 20px; }
+
+.live-input-bar {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 14;
+  padding: 10px 10px calc(10px + var(--safe-b));
+  display: flex; align-items: center; gap: 10px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, .72), rgba(0, 0, 0, .28) 70%, transparent);
+  backdrop-filter: blur(6px);
+  /* Item 11: com o teclado aberto, a barra sobe. A altura e injetada pelo JS
+     (--live-kb) para respeitar o safe-area de verdade, sem adivinhar. */
+  padding-bottom: calc(10px + var(--safe-b) + var(--live-kb, 0px));
+}
+
+/* ---- Coracoes flutuantes (item 8) ---------------------------------------
+   CAUSA RAIZ do bug relatado ("o coracao nao produz animacao"): o JS criava os
+   nos `.flying-heart` e anexava ao DOM, mas nao existia NENHUMA regra CSS para
+   eles - sem `position`, sem `animation` e sem keyframes, o coracao aparecia
+   como texto parado e nunca subia.
+
+   Agora: nasce de BAIXO, SOBE com balanco, gira (--rot), desv lateral (--dx),
+   encolhe e some sozinho. A camada fica ATRAS do conteudo (`z-index` baixo) e
+   acima do chat, entao nao tapa o rosto do streamer, nem os comentarios, nem
+   os controles. */
+#live-hearts {
+  /* `position`/`inset`/`z-index` vem do bloco "Camadas da LIVE" (item 6):
+     video -> efeitos -> coracoes -> chat/controles. Aqui ficam so as regras
+     que NAO definem a ordem. */
+  /* A camada e visual: nao pode roubar clique nem foco. */
+  pointer-events: none;
+  overflow: hidden;
+  /* Corta o coracao que sai pelo topo, em vez de deixa-lo sobre o cabecalho. */
+  contain: layout paint;
+}
+
+.flying-heart {
+  position: absolute;
+  /* O no e o ponto de origem: translada a partir da propria posicao. */
+  transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  line-height: 1;
+  color: var(--rosa);
+  /* Brilho suave para o coracao destacar sobre video claro sem ser neon. */
+  filter: drop-shadow(0 2px 6px color-mix(in srgb, var(--rosa) 55%, transparent));
+  will-change: transform, opacity;
+  animation: heart-fly var(--dur, 2.4s) linear forwards;
+  /* Sem mojibake: o conteudo vem do JS como escape unicode. */
+  user-select: none;
+}
+
+/* `--dx` (desvio lateral) e `--rot` (inclinacao) sao sorteados por coracao no
+   JS, o que da a sensacao de choveiro em vez de coluna reta. */
+@keyframes heart-fly {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(.7);
+  }
+  12% {
+    opacity: 1;
+    /* Pequeno salto inicial: o coracao "solta" do dedo. */
+    transform: translate3d(calc(var(--dx, 0px) * .12), -14px, 0) rotate(calc(var(--rot, 0deg) * .25)) scale(1.12);
+  }
+  55% {
+    opacity: .95;
+    transform: translate3d(calc(var(--dx, 0px) * -.35), -45%, 0) rotate(var(--rot, 0deg)) scale(1);
+  }
+  100% {
+    opacity: 0;
+    /* Sobe quase toda a altura da camada e encolhe no fim: some naturalmente. */
+    transform: translate3d(var(--dx, 0px), -105%, 0) rotate(calc(var(--rot, 0deg) * 1.6)) scale(.72);
+  }
+}
+
+/* Quem pediu menos movimento ve os coracoes sem animacao (o like real e
+   contabilizado no backend de qualquer forma). */
+@media (prefers-reduced-motion: reduce) {
+  .flying-heart { animation: heart-fly 1s linear forwards; opacity: .8; }
+}
+
+/* Campo de texto: bloco proprio, com o botao de efeito DENTRO. Assim o
+   botao nao invade o campo e o texto nunca fica embaixo dele. */
+.live-field {
+  position: relative; flex: 1 1 auto; min-width: 0;
+  display: flex; align-items: center;
+}
+.live-input {
+  width: 100%; min-width: 0; height: 42px; border-radius: 21px;
+  /* Espaco a direita para o botao de efeito, que fica dentro do campo. */
+  padding: 0 42px 0 16px;
+  border: 1px solid rgba(255, 255, 255, .3); background: rgba(0, 0, 0, .4);
+  color: #fff; font: inherit; font-size: 14.5px;
+}
+.live-input::placeholder { color: rgba(255, 255, 255, .6); }
+.live-input:focus { outline: none; border-color: rgba(255, 255, 255, .7); background: rgba(0, 0, 0, .55); }
+.live-input-action {
+  position: absolute; right: 3px; top: 50%; transform: translateY(-50%);
+  width: 36px; height: 36px; border-radius: 50%; border: none; cursor: pointer;
+  background: var(--brand-grad);
+  color: var(--on-brand); display: grid; place-items: center;
+}
+.live-input-action svg { width: 19px; height: 19px; }
+.live-input-action:active { transform: translateY(-50%) scale(.94); }
+
+/* ---- (13) Botao de CONFIRMAR ENVIO --------------------------------------
+   Aparece SO quando ha mensagem pronta (o JS controla com `hidden`). Nao e
+   `display:none` puro: `[hidden]` precisa vencer o `display: grid` do botao,
+   senao ele continua ocupando espaco e o usuario ve um botao morto. */
+.live-send {
+  flex: 0 0 auto;
+  width: 40px; height: 40px;
+  border-radius: 50%; border: none; cursor: pointer;
+  background: var(--brand-grad);
+  color: var(--on-brand);
+  display: grid; place-items: center;
+  box-shadow: var(--shadow-marca);
+  animation: live-send-in .16s ease-out;
+}
+.live-send[hidden] { display: none; }
+.live-send svg { width: 19px; height: 19px; }
+.live-send:active { transform: scale(.93); }
+
+@keyframes live-send-in {
+  from { opacity: 0; transform: scale(.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* (13) Divisor vertical entre o campo e os controles: separa visualmente,
+   como pedido, para o botao de efeitos nao parecer parte do texto. */
+.live-divider {
+  flex: 0 0 auto;
+  width: 1px; height: 24px;
+  margin: 0 4px;
+  background: var(--line-forte);
+  border-radius: 1px;
+}
+
+/* (12) Contador de espectadores vira botao clicavel. */
+.live-viewers-btn {
+  cursor: pointer;
+  border: 1px solid var(--line);
+  font: inherit;
+  /* Area de toque minima confiavel no celular. */
+  min-height: 34px;
+}
+.live-viewers-btn:hover { border-color: color-mix(in srgb, var(--rosa) 55%, transparent); }
+
+/* (11) Configuracoes no topo, ao lado do contador. */
+.live-settings-btn {
+  width: 38px; height: 38px;
+  background: color-mix(in srgb, var(--bg-elev) 78%, transparent);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.live-settings-btn svg { width: 19px; height: 19px; }
+
+/* (12) Painel de espectadores SOBRE a LIVE. */
+.live-viewers-list {
+  display: grid;
+  gap: 4px;
+  /* Limite de altura: com muita gente a lista rola em vez de empurrar a tela. */
+  max-height: min(56dvh, 420px);
+  overflow-y: auto;
+}
+.live-viewer-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--fg);
+  /* Area de toque confortavel, sem sobrepor a lista seguinte. */
+  min-height: 48px;
+}
+.live-viewer-row:hover, .live-viewer-row:focus-visible {
+  background: color-mix(in srgb, var(--rosa) 10%, transparent);
+}
+.live-viewer-name { font-weight: 600; font-size: 14px; }
+.live-viewer-user { font-size: 12.5px; color: var(--fg-faint); }
+
+/* (11) Menu de configuracoes: onde a acao de sair/encerrar passou a morar. */
+.live-config-list { display: grid; gap: 4px; }
+.live-config-item {
+  display: flex; align-items: center; gap: 12px;
+  width: 100%;
+  padding: 14px 12px;
+  min-height: 52px;
+  border: none; border-radius: 12px;
+  background: none;
+  color: var(--fg);
+  font: inherit; font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+}
+.live-config-item:hover, .live-config-item:focus-visible {
+  background: color-mix(in srgb, var(--rosa) 10%, transparent);
+}
+.live-config-item svg { width: 20px; height: 20px; flex: 0 0 auto; color: var(--rosa); }
+.live-config-item.is-danger { color: var(--danger); }
+.live-config-item.is-danger svg { color: var(--danger); }
+
+/* Item 9: rotulo do estado (Ligado/Desligado) do som dos efeitos. Vai para a
+   direita, com largura reservada, para o texto do item nao pular ao mudar de
+   estado e o item nao "pulse" ao ser tocado. */
+.live-config-estado {
+  margin-left: auto;
+  flex: 0 0 auto;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--fg-dim);
+  background: color-mix(in srgb, var(--fg) 8%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 10px;
+  min-width: 88px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.live-config-item[aria-pressed='true'] .live-config-estado {
+  color: var(--brand-2);
+  background: color-mix(in srgb, var(--brand-2) 14%, transparent);
+  border-color: color-mix(in srgb, var(--brand-2) 40%, transparent);
+}
+
+/* Grupo de acoes: folga constante entre os botoes. */
+.live-tools { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+/* (Item 4/13) Area de toque confiavel para usar com uma mao so. O
+   `min-height` e o que o teste mede: em tela estreita o botao pode encolher,
+   mas nunca abaixo de 40px. */
+.live-tools .round-btn,
+.live-input-bar .round-btn {
+  width: 40px; height: 40px; min-height: 40px; border-radius: 50%; border: none;
+  background: rgba(255, 255, 255, .16); color: var(--branco); cursor: pointer;
+  display: grid; place-items: center; flex: 0 0 auto;
+  transition: transform .12s ease, background .15s ease;
+}
+.live-input-bar .round-btn:active { transform: scale(.94); }
+.live-input-bar .round-btn.on { background: var(--brand-2); }
+.live-input-bar .round-btn svg { width: 21px; height: 21px; }
+
+/* Botao de sair do host: zona propria, com divisor visivel, bem longe do
+   compartilhamento (item 11: "nao deixar o sair colado no compartilhar"). */
+.live-end-btn {
+  flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px;
+  height: 40px; padding: 0 14px; border: none; border-radius: 21px;
+  background: var(--danger); color: #fff; font: inherit; font-size: 13.5px; font-weight: 700;
+  cursor: pointer; margin-left: 4px;
+  box-shadow: -8px 0 0 -4px rgba(0, 0, 0, .55);
+}
+.live-end-btn svg { width: 19px; height: 19px; }
+.live-end-btn:active { transform: scale(.96); }
+
+/* Item 11: em telas muito estreitas o rotulo "Sair" some antes do botao, e as
+   acoes colam menos - nunca sobrepoem o campo. */
+@media (max-width: 360px) {
+  // O botao "Sair" saiu da barra (item 11): a acao vive no menu de
+  // configuracoes no topo. Nao ha mais rotulo para esconder aqui.
+  .live-input-bar { gap: 8px; padding-left: 8px; padding-right: 8px; }
+  .live-tools { gap: 6px; }
+  .live-input-bar .round-btn { width: 38px; height: 38px; }
+  /* O divisor e o primeiro elemento a encolher: a barra fica apertada em
+     320px e o espaco conta mais que a separacao visual. O TEXTO continua
+     protegido pelo `padding-right` do campo. */
+  .live-divider { width: 1px; height: 20px; margin: 0 2px; opacity: .6; }
+  .live-send { width: 36px; height: 36px; min-height: 36px; }
+  .live-input { height: 40px; padding-right: 38px; }
+  .live-input-action { width: 34px; height: 34px; }
+}
+
+/* Item 12: no desktop a barra e uma linha centralizada, sem colar na borda e
+   com o campo com largura maxima - evita "botoes empilhados verticalmente". */
+@media (min-width: 900px) {
+  .live-input-bar {
+    left: 50%; right: auto; transform: translateX(-50%);
+    width: min(680px, calc(100vw - 48px));
+    padding: 12px 12px calc(12px + var(--safe-b));
+    border-radius: 26px;
+    background: rgba(0, 0, 0, .6);
+    border: 1px solid rgba(255, 255, 255, .12);
+  }
+  .live-input-bar .live-field { flex: 1 1 auto; }
+  .live-chat { max-width: 720px; margin: 0 auto; }
+}
+
+/* ---- Item 9: aviso compacto de conexao (host/admin) ------------------ */
+.live-turn {
+  position: absolute; z-index: 13;
+  top: calc(58px + var(--safe-t)); left: 12px;
+  max-width: min(320px, calc(100vw - 24px));
+}
+.live-turn[data-state='hidden'] { display: none; }
+.live-turn-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px; border-radius: 999px; cursor: pointer;
+  background: rgba(237, 168, 0, .16); border: 1px solid rgba(237, 168, 0, .55);
+  color: #ffd27d; font: inherit; font-size: 11.5px; font-weight: 600;
+  text-align: left;
+}
+.live-turn-chip svg { width: 14px; height: 14px; flex: 0 0 auto; }
+.live-turn-chip .live-turn-text { line-height: 1.3; }
+/* `display` fica SÓ no estado expandido. O painel traz `background:
+ rgba(0,0,0,.82)`: enquanto estivesse sempre `grid`, ele aparecia como uma
+ FAIXA PRETA opaca sobre o video mesmo com o aviso recolhido. */
+.live-turn-panel {
+  display: none; margin-top: 6px; padding: 8px 10px; border-radius: 10px;
+  background: rgba(0, 0, 0, .82); border: 1px solid rgba(255, 255, 255, .14);
+  color: #eee; gap: 3px;
+}
+.live-turn[data-expanded='1'] .live-turn-panel { display: grid; }
+
+.live-heart-btn {
+  /* `safe-r`: em paisagem o notch pode comer o botao de coracao. */
+  position: absolute; right: calc(12px + var(--safe-r));
+  bottom: calc(120px + var(--safe-b)); z-index: 13;
+  width: 56px; height: 56px; border-radius: 50%; border: none; cursor: pointer;
+  background: rgba(0, 0, 0, .35); color: #fff; display: grid; place-items: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.live-heart-btn svg { width: 30px; height: 30px; fill: var(--like); stroke: var(--like); }
+.live-heart-btn:active svg { transform: scale(.85); }
+
+/* Duplicata de `.live-hearts`: a posicao na pilha vem do bloco "Camadas da
+   LIVE" (item 6). Esta regra antiga com `z-index: 9` colocava os coracoes
+   ACIMA da barra inferior e do chat. */
+@keyframes heartRise {
+  0% { transform: translate(0, 0) scale(.4); opacity: 0; }
+  12% { opacity: 1; transform: translate(0, -20px) scale(1.1); }
+  100% { transform: translate(var(--dx, 0), -320px) scale(.8); opacity: 0; }
+}
+
+/* ==================================================================
+   Camadas da LIVE (item 6)
+   Composicao exigida, de baixo para cima:
+
+     video  ->  #live-effects  ->  #live-hearts  ->  chat / controles
+
+   As duas camadas sao MOVIDAS para dentro da `.live-page` por
+   `EffectOverlay.mountIn()` / `HeartLayer.mountIn()`. Isso e obrigatorio:
+   a `.live-page` cria contexto de empilhamento (`position: fixed` +
+   `z-index: 60`), entao qualquer camada deixada no `<body>` com z-index menor
+   ficaria ATRAS da transmissao inteira - inclusive no mobile, onde a page
+   cobre a tela toda.
+   ================================================================== */
+.live-page {
+  --live-video-z: 1;
+  --live-effects-z: 2;
+  --live-hearts-z: 3;
+  --live-ui-z: 6;
+}
+
+/* O palco e a AREA VISIVEL do video: ocupa a LIVE inteira (`.live-page` e
+   `position: fixed; inset: 0` no mobile), sem margem, sem padding e sem altura
+   fixa. `overflow: hidden` aparar o quadro quando o `object-fit` nao sobra. */
+.live-video-wrap {
+  position: absolute; inset: 0;
+  background: #000;
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
+  z-index: var(--live-video-z);
+}
+
+/* As camadas cobrem a AREA DO VIDEO, e nao a tela inteira: assim o efeito
+   nunca invade o cabecalho nem a barra inferior. */
+#live-effects,
+.live-effects {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: var(--live-effects-z, 2);
+}
+#live-hearts,
+.live-hearts {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: var(--live-hearts-z, 3);
+}
+/* Chat, barra de mensagens e controles ficam acima da decoracao. */
+.live-chat,
+.live-messages,
+.live-input-bar,
+.live-top,
+.live-top-actions,
+.live-actions,
+.live-heart-btn,
+.live-viewers-btn,
+.live-settings-btn,
+.live-pill { z-index: var(--live-ui-z, 6); }
+/* Nenhum efeito captura clique: e decoracao sobre o video. */
+.effect-instance { pointer-events: none; }
+.effect-instance { position: absolute; will-change: transform, opacity; }
+.effect-instance canvas, .effect-instance video {
+  width: 100%; height: 100%; object-fit: contain; display: block;
+}
+.effect-bubble { display: flex; align-items: center; gap: 6px; }
+
+/* ---- Card de presente da LIVE ----------------------------------------- */
+/* ==================================================================
+   MENU DE EFEITOS DA LIVE - compacto (item 7)
+   Antes: uma grade de `minmax(96px, 1fr)` direto no corpo do modal, sem
+   cabecalho proprio nem rolagem limitada. Com 15 efeitos a coluna ficava
+   alta e o nome quebrava em duas linhas.
+
+   Agora o painel tem cabecalho fixo (busca + contagem) e a GRADE sozinha rola, com a altura limitada
+   pela viewport REAL: safe-area do topo, barra inferior da LIVE e teclado
+   (`--live-kb`, publicado por `core/viewport.js`). Assim o teclado virtual
+   nao deixa o painel para fora da tela.
+   ================================================================== */
+/* O painel e limitado pela ALTURA, e a grade e a unica parte que rola. O limite
+   desconta a reserva do modal (cabecalho + padding), o cabecalho do painel, os
+   rodape, para o painel caber na tela sem esconder presentes por categoria.
+   `--picker-reserva` e o que sobra para a grade. */
+.effect-picker {
+  --picker-reserva: 176px;
+  --picker-disponivel: min(
+    calc(100dvh - var(--safe-t) - var(--live-bar-h, 56px) - var(--safe-b) - var(--picker-reserva)),
+    /* Teto de proporcao: o painel nao pode dominar a tela. 52dvh deixa duas
+       fileiras de cards visiveis e o resto por rolagem - no desktop e no
+       celular alike. */
+    52dvh
+  );
+  display: grid;
+  /* `minmax(0, 1fr)` na grade e o que permite encolher dentro do limite do
+     painel; sem o 0 a grade empurra o painel para fora da tela. */
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  gap: 10px; min-width: 0;
+  max-height: max(180px, var(--picker-disponivel));
+}
+/* Teclado aberto: a busca do painel e um campo de texto, entao no celular o
+   teclado ocupa a metade de baixo. `com-teclado` e aplicado pelo JS ao focar a
+   busca, e aqui a altura util cai para 62% - o mesmo caminho usado pela LIVE. */
+.effect-picker.com-teclado {
+  --picker-disponivel: calc(
+    (100dvh - var(--safe-t) - var(--safe-b) - var(--picker-reserva)) * 0.62
+  );
+}
+
+.effect-picker-topo {
+  display: flex; align-items: center; gap: 8px; min-width: 0;
+}
+.effect-picker-busca {
+  flex: 1 1 auto; min-width: 0; height: 38px; padding: 0 12px;
+  font-size: 14px;
+}
+.effect-picker-count {
+  flex: 0 0 auto; font-size: 12px; color: var(--fg-dim);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+
+/* A GRADE e a unica parte que rola. A altura vem da linha `minmax(0, 1fr)` do
+   painel; aqui so `min-height: 0`, senao a grade empurra o painel. */
+.effect-grid {
+  display: grid;
+  /* Colunas de 76-92px: cabem 4-5 no celular e 6-8 no desktop, com alvo de
+     toque folgado sem o card virar um poster. */
+  grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+  /* `max-content` e OBRIGATORIO aqui. Com `auto` (que usa min-content), uma
+     caixa de preview com `aspect-ratio` contribui 0px para a altura minima da
+     linha - as linhas ficavam com 29px e o card (149px de conteudo) era
+     cortado pelo `overflow: hidden`. Em `max-content` a altura real do preview
+     entra no calculo. */
+  grid-auto-rows: max-content;
+  gap: 8px; padding: 2px;
+  min-height: 0;
+  overflow-y: auto; overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.effect-picker-vazio {
+  margin: 4px 0 0; padding: 14px 8px; text-align: center;
+  font-size: 13px; color: var(--fg-dim);
+}
+.effect-picker-rodape {
+  font-size: 12px; color: var(--fg-dim); text-align: center;
+  padding-top: 2px;
+}
+
+/* No desktop o painel nao domina a tela: largura curta e grade mais densa. */
+@media (min-width: 700px) {
+  .effect-grid { grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 10px; }
+}
+
+.effect-card {
+  position: relative; width: 100%;
+  /* Item de grid nasce com `min-width: auto`, que impede a coluna de encolher
+     abaixo do min-content do card. Sem isto a grade abria 2 colunas de 113px em
+     vez de 3 de 76px numa tela de 320px. */
+  min-width: 0;
+  padding: 0; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+  background: var(--bg-elev); color: var(--fg); text-align: left;
+  /* `display: flex; flex-direction: column` explicito. Um <button> sozinho cria
+     um container anonimo flex (row, align-items:center) onde a caixa do preview
+     vira item flex: com `aspect-ratio` e sem base definida, esse item COLAPSA
+     e o card ficava com 29px de altura, cortando preview e nome. */
+  display: flex; flex-direction: column; align-items: stretch;
+  justify-content: flex-start;
+}
+.effect-card:hover { border-color: var(--brand); }
+.effect-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+.effect-card-media {
+  position: relative; width: 100%; aspect-ratio: 1 / 1;
+  background: transparent; overflow: hidden; display: grid; place-items: center;
+  /* `flex: 0 0 auto` no card (coluna) e obrigatorio: sem isso o item flex usa a
+     altura automatica e, com o container de altura indefinida, colapsa para 0
+     - o preview sumia e o card ficava so com o nome. */
+  flex: 0 0 auto;
+}
+/* A midia e posicionada de forma ABSOLUTA, nao com `height: 100%`.
+   A caixa do preview define a altura por `aspect-ratio`, e essa altura nao conta
+   como "definitiva" para resolver porcentagem: o `height: 100%` do `<img>`
+   virava `auto` e a imagem assumia a proporcao intrinseca (256x936 num card de
+   115px de largura = 420px de altura), estourando o preview cortado e
+   quebrando a altura do card. Com `inset: 0` as dimensoes sempre resolvem. */
+.effect-card-media img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+}
+.effect-card-media img { object-fit: cover; }
+/* Nome curto: ate DUAS linhas com corte por reticencias e altura reservada,
+   senao os cards com nomes de tamanhos diferentes ficam com a base
+   desalinhada. Uma unica linha obrigava a cortar "Confete de festa" em
+   320px. O titulo do botao traz o nome inteiro para o leitor de tela e
+   para o mouse. O icone de sparkle saiu daqui: roubava largura util e
+   repetia o que o preview ja mostra. */
+.effect-card-name {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
+  overflow: hidden;
+  padding: 4px 6px 6px; margin: 0;
+  font-size: 11px; line-height: 1.25; font-weight: 600;
+  min-height: 34px; min-width: 0;
+  overflow-wrap: anywhere;
+  flex: 0 0 auto;
+}
+/* Selo de som (item 9): so aparece quando o efeito TEM arquivo de audio. */
+.effect-card-som {
+  position: absolute; right: 4px; top: 4px;
+  display: grid; place-items: center;
+  width: 20px; height: 20px; border-radius: 999px;
+  background: rgba(0, 0, 0, .62); color: #fff;
+  pointer-events: none;
+}
+.effect-card-som svg { width: 12px; height: 12px; stroke-width: 2.2; }
+
+.live-modal-host { position: fixed; inset: 0; z-index: 320; display: none; }
+.live-modal-host.open { display: grid; place-items: center; background: rgba(0, 0, 0, .7); padding: 16px; }
+.live-config-panel {
+  width: 100%; max-width: 380px; background: var(--bg-elev);
+  border-radius: 18px; overflow: hidden;
+}
+.live-config-list { max-height: 60dvh; overflow-y: auto; }
+
+/* ------------------------------ Editor ---------------------------------- */
+.editor { min-height: 100dvh; display: flex; flex-direction: column; background: #000; }
+.editor-stage { position: relative; flex: 1 1 auto; display: grid; place-items: center; overflow: hidden; }
+.editor-stage video, .editor-stage img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.editor-canvas-overlay { position: absolute; inset: 0; }
+.ed-sticker { position: absolute; font-size: 42px; cursor: grab; user-select: none; }
+.ed-text {
+  position: absolute; font-weight: 800; font-size: 28px; color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, .6); cursor: grab; user-select: none;
+  white-space: pre-wrap; text-align: center; padding: 4px;
+}
+.ed-drawing { position: absolute; inset: 0; touch-action: none; }
+.editor-bar {
+  display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+  padding-bottom: calc(10px + var(--safe-b));
+  background: var(--bg); border-top: 1px solid var(--line);
+}
+/* Item 15: as ferramentas do editor sao uma GRADE em qualquer largura.
+   Antes era uma linha horizontal com rolagem lateral no tablet/desktop
+   ("linha horizontal gigantesca"); agora o numero de colunas se ajusta e
+   nada depende de scroll horizontal. A largura maxima evita celulas
+   esparsas em telas grandes. */
+.editor-tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--bg);
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  overflow-x: visible;
+}
+/* No celular as colunas ficam mais justas para caberem sem espremer. */
+@media (max-width: 700px) {
+  .editor-tools {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 6px; padding: 8px 10px; max-width: none;
+  }
+  .tool-btn { min-width: 0; padding: 8px 2px; font-size: 10.5px; gap: 3px; }
+  .tool-btn svg { width: 18px; height: 18px; }
+  .tool-btn span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+@media (max-width: 400px) {
+  .editor-tools { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+.tool-btn {
+  flex: 0 0 auto; min-width: 0; padding: 8px 10px; border: 1px solid var(--line);
+  border-radius: 10px; background: var(--bg-elev); color: var(--fg); cursor: pointer;
+  font: inherit; font-size: 12px; display: grid; gap: 4px; justify-items: center;
+  align-content: center;
+}
+.tool-btn svg { width: 20px; height: 20px; }
+.tool-btn[aria-pressed="true"] { border-color: var(--brand); background: var(--bg-elev-2); }
+
+.filter-strip { display: flex; gap: 8px; overflow-x: auto; padding: 10px 12px; }
+.filter-chip {
+  flex: 0 0 auto; width: 62px; height: 78px; border-radius: 10px; border: 2px solid transparent;
+  overflow: hidden; cursor: pointer; padding: 0; position: relative; background: var(--bg-elev-2);
+}
+.filter-chip[aria-pressed="true"] { border-color: var(--brand); }
+.filter-chip canvas { width: 100%; height: 100%; object-fit: cover; display: block; }
+.filter-chip span { position: absolute; bottom: 0; left: 0; right: 0; font-size: 9.5px; background: rgba(0,0,0,.6); padding: 2px; }
+
+.progress-track { height: 4px; border-radius: 2px; background: var(--bg-input); overflow: hidden; }
+.progress-bar { height: 100%; background: var(--brand-2); width: 0; transition: width .2s; }
+
+/* ------------------------------ Mini-player (YouTube) ------------------ */
+.mini-player-host { position: fixed; inset: 0; pointer-events: none; z-index: 500; }
+.mini-player {
+  position: absolute; pointer-events: auto;
+  width: 320px; aspect-ratio: 16 / 9;
+  overflow: hidden; background: #000;
+  /* Sem moldura: sem borda, sem sombra, sem cartao. O video flutua. */
+  border: 0;
+  box-shadow: none;
+  touch-action: none;
+}
+.mini-player.dragging, .mini-player.resizing { user-select: none; }
+.mini-player .mini-resize { touch-action: none; }
+.mini-player iframe { width: 100%; height: 100%; border: 0; display: block; pointer-events: auto; }
+.mini-player.dragging { transition: none; }
+.mini-player.resizing { transition: none; }
+
+/* Faixa invisivel de arraste no topo.
+   O iframe do YouTube ocupa 100% do container, entao sem esta faixa nao existiria
+   NENHUM pixel arrastavel - o mini-player ficaria preso no canto. E invisivel
+   por requisito (nenhuma alca/borde/cartao visivel). */
+.mini-drag {
+  position: absolute; top: 0; left: 0; right: 0; height: 16px;
+  z-index: 2; cursor: grab; touch-action: none; background: transparent;
+}
+.mini-player.dragging .mini-drag { cursor: grabbing; }
+
+/* Zona de resize tambem invisivel (canto inferior direito). */
+.mini-resize {
+  position: absolute; right: 0; bottom: 0; width: 28px; height: 28px;
+  z-index: 3; cursor: nwse-resize; touch-action: none; background: transparent;
+}
+
+/* ------------------------------ Toast / Modal --------------------------- */
+.toasts {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  /* Item 7: mesma medicao do aviso de push. Um toast nao pode cair em cima do
+     composer do chat (que fica logo acima da tabbar) nem da barra da LIVE. */
+  bottom: calc(var(--rodape-h, 76px) + 10px); z-index: 900;
+  display: flex; flex-direction: column; gap: 8px; align-items: center;
+  pointer-events: none; width: min(440px, calc(100vw - 24px));
+}
+.toast {
+  background: var(--bg-elev-2); border: 1px solid var(--line); color: var(--fg);
+  padding: 11px 15px; border-radius: 12px; font-size: 14px; box-shadow: var(--shadow);
+  pointer-events: auto; animation: toastIn .2s ease; max-width: 100%;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.toast.error { border-color: var(--danger); }
+.toast.success { border-color: var(--ok); }
+.toast button { margin-left: auto; }
+@keyframes toastIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+.modal-root:empty { display: none; }
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 800; background: rgba(0, 0, 0, .6);
+  display: grid; place-items: center; padding: 16px; animation: fade .15s;
+}
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  width: 100%; max-width: 440px; max-height: 88dvh; overflow-y: auto;
+  background: var(--bg-elev); border-radius: 16px; border: 1px solid var(--line);
+}
+.modal-head { padding: 16px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 10px; }
+.modal-head h2 { margin: 0; font-size: 17px; flex: 1 1 auto; }
+.modal-body { padding: 16px; }
+.live-profile-card { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.live-profile-avatar { margin-bottom: 4px; }
+.live-profile-name { font-size: 16px; }
+.live-profile-bio { margin: 4px 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.live-profile-actions { display: flex; gap: 8px; margin-top: 16px; }
+.live-profile-actions .btn { flex: 1; }
+.modal-foot { padding: 12px 16px 16px; display: flex; gap: 8px; justify-content: flex-end; }
+
+.menu-list { display: flex; flex-direction: column; }
+.menu-item {
+  display: flex; align-items: center; gap: 12px; padding: 13px 4px;
+  border: none; background: none; color: var(--fg); font: inherit; font-size: 15px;
+  cursor: pointer; text-align: left; width: 100%; border-bottom: 1px solid var(--line);
+}
+.menu-item:hover { background: var(--bg-elev-2); }
+.menu-item.danger { color: var(--danger); }
+.menu-item svg { width: 20px; height: 20px; }
+
+.push-prompt {
+  /* Item 7: a posicao deixa de ser um palpite. `--rodape-h` e a ALTURA REAL
+     do que ja ocupa o rodape (tabbar + composer do chat + safe-area), medida
+     por `publicarFaixaRodape` em `core/viewport.js`. Antes o `bottom` era
+     `66px + safe-area`: no celular o aviso caia exatamente sobre os seis
+     controles do Chat Global (medido em 390x844: aviso y=629..778, composer
+     y=734..776 - `elementFromPoint` devolvia o botao do aviso nos seis).
+     Agora o aviso senta ACIMA do rodape em qualquer tela. */
+  position: fixed; left: 12px; right: 12px;
+  bottom: calc(var(--rodape-h, 66px) + 10px); z-index: 700;
+  background: var(--bg-elev-2); border: 1px solid var(--line); border-radius: 14px;
+  padding: 14px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 12px;
+}
+.push-prompt p { margin: 4px 0 0; font-size: 13px; color: var(--fg-dim); }
+.push-prompt-actions { display: flex; gap: 8px; }
+.push-prompt-actions .btn { flex: 1; }
+
+/* ------------------------------ Admin ----------------------------------- */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.stat {
+  background: var(--bg-elev); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 14px;
+}
+.stat b { display: block; font-size: 24px; font-weight: 800; line-height: 1.1; }
+.stat span { font-size: 12px; color: var(--fg-dim); }
+.data-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.data-table th, .data-table td { padding: 9px 8px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.data-table th { color: var(--fg-dim); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .4px; }
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.status-tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+.status-active, .status-published, .status-resolved, .status-live { background: color-mix(in srgb, var(--ok) 25%, transparent); color: var(--ok); }
+.status-suspended, .status-pending, .status-processing, .status-reviewing { background: color-mix(in srgb, var(--warn) 25%, transparent); color: var(--warn); }
+.status-banned, .status-deleted, .status-failed, .status-rejected { background: color-mix(in srgb, var(--danger) 25%, transparent); color: var(--danger); }
+
+/* ------------------------------ Settings -------------------------------- */
+.settings-nav { display: flex; gap: 6px; overflow-x: auto; padding: 10px 14px; scrollbar-width: none; border-bottom: 1px solid var(--line); }
+.settings-nav::-webkit-scrollbar { display: none; }
+.settings-nav button {
+  flex: 0 0 auto; padding: 8px 14px; border-radius: 20px; border: 1px solid var(--line);
+  background: none; color: var(--fg-dim); font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer;
+}
+.settings-nav button[aria-selected="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+/* ------------------------------ Admin ---------------------------------- */
+.admin-page {
+  max-width: 1180px;
+  /* Fundo com leve profundidade: da a sensacao de "painel" sem trocar o tema. */
+  background:
+    radial-gradient(900px 420px at 12% -8%, color-mix(in srgb, var(--brand-2) 12%, transparent), transparent 70%),
+    radial-gradient(760px 380px at 92% 0%, color-mix(in srgb, var(--roxo) 12%, transparent), transparent 70%);
+}
+
+.admin-header {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 16px 16px 10px;
+  position: sticky; top: 0; z-index: 5;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.admin-brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.admin-brand-mark {
+  display: grid; place-items: center; width: 36px; height: 36px; flex: 0 0 auto;
+  border-radius: 11px; color: #fff;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  box-shadow: 0 6px 18px -8px var(--brand-2);
+}
+.admin-brand-mark svg { width: 19px; height: 19px; }
+.admin-title { font-size: 19px; font-weight: 800; margin: 0; letter-spacing: -.2px; }
+
+/* Indicador de conexao do realtime (item 18). */
+.admin-live {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 11px; border-radius: 999px; white-space: nowrap;
+  font-size: 11.5px; font-weight: 700; letter-spacing: .3px;
+  border: 1px solid var(--line); color: var(--fg-dim); background: var(--bg-elev);
+}
+.admin-live i { width: 8px; height: 8px; border-radius: 50%; background: var(--fg-faint); flex: 0 0 auto; }
+.admin-live[data-state="live"] { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 45%, transparent); }
+.admin-live[data-state="live"] i { background: var(--ok); animation: adminPulse 1.6s infinite; }
+.admin-live[data-state="reconnecting"] { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 45%, transparent); }
+.admin-live[data-state="reconnecting"] i { background: var(--warn); animation: adminPulse .8s infinite; }
+@keyframes adminPulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+
+.admin-hero {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  padding: 16px 18px; margin-bottom: 14px;
+  border-radius: 16px;
+  background: linear-gradient(120deg, color-mix(in srgb, var(--brand-2) 16%, var(--bg-elev)), var(--bg-elev) 62%);
+  border: 1px solid color-mix(in srgb, var(--brand-2) 28%, var(--line));
+}
+.admin-hero-title { margin: 0 0 2px; font-size: 17px; font-weight: 800; letter-spacing: -.2px; }
+.admin-hero p { margin: 0; }
+
+.admin-stats { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.admin-stat {
+  background: linear-gradient(160deg, var(--bg-elev), color-mix(in srgb, var(--bg-elev) 82%, #000));
+  border: 1px solid var(--line);
+  border-radius: 14px; padding: 14px 15px;
+  transition: transform .16s ease, border-color .16s ease;
+}
+.admin-stat:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--brand-2) 45%, var(--line)); }
+.admin-stat b {
+  display: block; font-size: 26px; font-weight: 800; line-height: 1.05;
+  background: linear-gradient(120deg, var(--fg), color-mix(in srgb, var(--brand) 60%, var(--fg)));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  font-variant-numeric: tabular-nums;
+}
+.admin-stat-label { display: block; font-size: 12.5px; color: var(--fg-dim); margin-top: 3px; }
+
+.admin-columns { display: grid; grid-template-columns: 1.35fr 1fr; gap: 12px; }
+@media (max-width: 820px) { .admin-columns { grid-template-columns: 1fr; } }
+
+.admin-card { background: var(--bg-elev); border: 1px solid var(--line); border-radius: 14px; padding: 14px 15px; }
+.admin-card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.admin-card-title { margin: 0; font-size: 14px; font-weight: 700; letter-spacing: .2px; }
+.admin-card-hint {
+  margin-left: auto; font-size: 10.5px; font-weight: 700; letter-spacing: .6px;
+  text-transform: uppercase; color: var(--fg-faint);
+}
+
+.admin-activity { display: grid; gap: 2px; max-height: 320px; overflow-y: auto; margin: 0 -4px; padding: 0 4px; }
+.admin-activity-row {
+  display: flex; align-items: center; gap: 9px;
+  padding: 7px 6px; border-radius: 9px; font-size: 13px;
+  animation: adminRowIn .22s ease;
+}
+.admin-activity-row:hover { background: color-mix(in srgb, var(--fg) 6%, transparent); }
+@keyframes adminRowIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.admin-activity-icon {
+  display: grid; place-items: center; width: 26px; height: 26px; flex: 0 0 auto;
+  border-radius: 8px; color: var(--fg-dim); background: color-mix(in srgb, var(--fg) 8%, transparent);
+}
+.admin-activity-icon svg { width: 14px; height: 14px; }
+.admin-activity-row[data-tone="ok"] .admin-activity-icon { color: var(--ok); background: color-mix(in srgb, var(--ok) 16%, transparent); }
+.admin-activity-row[data-tone="brand"] .admin-activity-icon { color: var(--brand); background: color-mix(in srgb, var(--brand) 16%, transparent); }
+.admin-activity-row[data-tone="live"] .admin-activity-icon { color: var(--brand-2); background: color-mix(in srgb, var(--brand-2) 18%, transparent); }
+.admin-activity-row[data-tone="warn"] .admin-activity-icon { color: var(--warn); background: color-mix(in srgb, var(--warn) 16%, transparent); }
+
+.admin-metric {
+  display: flex; align-items: baseline; gap: 8px;
+  padding: 7px 0; border-bottom: 1px dashed color-mix(in srgb, var(--line) 80%, transparent);
+  font-size: 13px; color: var(--fg-dim);
+}
+.admin-metric:last-child { border-bottom: none; }
+.admin-metric b { font-size: 15px; color: var(--fg); font-variant-numeric: tabular-nums; }
+
+/* Tabelas do painel: mais respiro e numeracao alinhada. */
+.admin-page .data-table th { position: sticky; top: 0; background: var(--bg-elev); z-index: 1; }
+.admin-page .data-table td { font-variant-numeric: tabular-nums; }
+.admin-page .settings-body { max-width: none; padding: 16px 16px calc(32px + var(--safe-b)); }
+
+@media (max-width: 560px) {
+  .admin-header { padding: 12px 12px 8px; }
+  .admin-title { font-size: 17px; }
+  .admin-stat b { font-size: 22px; }
+  .admin-page .settings-nav { padding: 8px 10px; }
+  .admin-page .settings-body { padding: 12px 12px calc(28px + var(--safe-b)); }
+}
+
+/* Anexo do comentario (itens 15 e 16). O `max-width` relativo impede que
+   um GIF largo estoure a coluna do comentario no celular. */
+.comment-media {
+  margin-top: 6px; max-width: min(100%, 260px); border-radius: 12px; overflow: hidden;
+  background: color-mix(in srgb, var(--fg) 8%, transparent);
+}
+.comment-media img, .comment-media video { display: block; width: 100%; height: auto; max-height: 320px; object-fit: contain; }
+.comment-media[data-kind="gif"] img,
+.comment-media[data-kind="sticker"] img { object-fit: contain; background: transparent; }
+.comment-media audio { display: block; width: 100%; min-width: 180px; }
+
+.settings-body { padding: 16px 14px calc(28px + var(--safe-b)); max-width: 720px; }
+.setting-group { margin-bottom: 24px; }
+.setting-group h3 { font-size: 14px; text-transform: uppercase; letter-spacing: .6px; color: var(--fg-dim); margin: 0 0 10px; }
+
+/* ------------------------------ Carregando ------------------------------ */
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-elev) 25%, var(--bg-elev-2) 50%, var(--bg-elev) 75%);
+  background-size: 200% 100%; animation: shimmer 1.3s infinite; border-radius: 8px;
+}
+@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+.empty-state { text-align: center; padding: 40px 20px; color: var(--fg-dim); }
+.empty-state h3 { color: var(--fg); margin: 12px 0 6px; font-size: 17px; }
+
+/* ------------------------------ Desktop --------------------------------- */
+@media (min-width: 1024px) {
+  .sidebar { display: flex; flex-direction: column; }
+  .page { max-width: 900px; }
+  .tabbar { display: none; }
+  .feed-page.desktop { max-width: 1000px; margin: 0 auto; }
+  .feed-stage {
+    /* No PC o player nao cresce infinitamente em telas grandes. */
+    max-height: 880px;
+    border-radius: 0;
+  }
+  .slide-media video, .slide-media img { object-fit: contain; }
+  /* Itens 1 e 2: no desktop o bloco do autor e a coluna de acoes descem para
+     a regiao util inferior do video, com a MESMA logica proporcional do
+     mobile. `100dvh - --topbar-h` e a altura util real do player no desktop
+     (a barra de topo existe; a bottom nav nao). */
+  .slide {
+    --acoes-base: clamp(14px, 3.2vh, 40px);
+  --acoes-base: clamp(14px, 3.2dvh, 40px);
+    --acoes-larg: clamp(78px, 6vw, 108px);
+  }
+  .slide-overlay {
+    padding: 20px var(--acoes-larg) var(--acoes-base) 24px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, .78) 0%, rgba(0, 0, 0, .42) 42%, transparent 100%);
+  }
+  .slide-actions { right: 18px; bottom: var(--acoes-base); }
+  /* Item 7: no desktop o toast fica no canto, mas continua ACIMA da faixa de
+     rodape medida - o composer do chat e a barra da LIVE moram ali. */
+  .toasts { bottom: calc(var(--rodape-h, 24px) + 10px); left: auto; right: 24px; transform: none; }
+  .grid { grid-template-columns: repeat(5, 1fr); }
+}
+
+@media (min-width: 1400px) {
+  .sidebar { width: 260px; flex-basis: 260px; }
+  .feed-page.desktop { max-width: 1120px; }
+}
+
+@media (min-width: 1900px) {
+  .page { max-width: 1100px; }
+}
+
+@media print {
+  .sidebar, .tabbar, .topbar { display: none !important; }
+}

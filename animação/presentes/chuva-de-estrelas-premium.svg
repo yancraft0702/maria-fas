@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="768" viewBox="0 0 480 768">
+    <defs>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff8d7"/><stop offset=".22" stop-color="#f6d77e"/><stop offset=".52" stop-color="#cc8b28"/><stop offset=".78" stop-color="#ffe5a0"/><stop offset="1" stop-color="#a76119"/></linearGradient>
+  <linearGradient id="rose" x1=".15" y1="0" x2=".85" y2="1"><stop stop-color="#ffe3e8"/><stop offset=".22" stop-color="#ff9caf"/><stop offset=".55" stop-color="#ed527f"/><stop offset=".82" stop-color="#ad285a"/><stop offset="1" stop-color="#74184c"/></linearGradient>
+  <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d8f5b0"/><stop offset=".48" stop-color="#72ae69"/><stop offset="1" stop-color="#2b7358"/></linearGradient>
+  <linearGradient id="crystal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset=".19" stop-color="#bcecff"/><stop offset=".45" stop-color="#80a5ff"/><stop offset=".7" stop-color="#b48bff"/><stop offset="1" stop-color="#f7d2ff"/></linearGradient>
+  <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6f8ff"/><stop offset=".4" stop-color="#a9b6ca"/><stop offset=".72" stop-color="#64728c"/><stop offset="1" stop-color="#313e56"/></linearGradient>
+  <radialGradient id="plush" cx=".34" cy=".22" r=".85"><stop stop-color="#ffedcf"/><stop offset=".35" stop-color="#dbab78"/><stop offset=".75" stop-color="#a86e48"/><stop offset="1" stop-color="#68433c"/></radialGradient>
+  <radialGradient id="portal"><stop stop-color="#fff" stop-opacity=".92"/><stop offset=".3" stop-color="#b8edff" stop-opacity=".7"/><stop offset=".72" stop-color="#9b83ff" stop-opacity=".32"/><stop offset="1" stop-color="#c8a2ff" stop-opacity="0"/></radialGradient>
+  <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+    <ellipse cx="240" cy="372" rx="154" ry="160" fill="#b5a9ff" opacity=".13" filter="url(#softGlow)"/>
+    <g fill="none" stroke="#b5a9ff" stroke-width="4" opacity=".54">
+      <ellipse cx="240" cy="368" rx="150" ry="176" stroke-dasharray="8 20" transform="rotate(-18 240 368)"><animateTransform attributeName="transform" type="rotate" from="-18 240 368" to="342 240 368" dur="14s" repeatCount="indefinite"/></ellipse>
+    </g>
+    <ellipse cx="240" cy="372" rx="120" ry="120" fill="none" stroke="#fff" stroke-width="3" opacity="0">
+      <animate attributeName="opacity" values="0;.72;0" keyTimes="0;.42;1" dur="3.8s" repeatCount="indefinite"/>
+      <animate attributeName="rx" values="28;168" dur="3.8s" repeatCount="indefinite"/>
+      <animate attributeName="ry" values="28;198" dur="3.8s" repeatCount="indefinite"/>
+    </ellipse>
+    <g><path d="M105 284L108 292L116 295L108 298L105 306L102 298L94 295L102 292Z" fill="#b5a9ff" opacity=".85"><animate attributeName="opacity" values=".25;1;.35" dur="1.2s" repeatCount="indefinite"/></path><path d="M367 278L370 286L378 289L370 292L367 300L364 292L356 289L364 286Z" fill="#fff6d7" opacity=".85"><animate attributeName="opacity" values=".25;1;.35" dur="1.33s" repeatCount="indefinite"/></path><path d="M128 427L131 435L139 438L131 441L128 449L125 441L117 438L125 435Z" fill="#b5a9ff" opacity=".85"><animate attributeName="opacity" values=".25;1;.35" dur="1.46s" repeatCount="indefinite"/></path><path d="M350 439L353 447L361 450L353 453L350 461L347 453L339 450L347 447Z" fill="#fff6d7" opacity=".85"><animate attributeName="opacity" values=".25;1;.35" dur="1.5899999999999999s" repeatCount="indefinite"/></path><path d="M182 179L185 187L193 190L185 193L182 201L179 193L171 190L179 187Z" fill="#b5a9ff" opacity=".85"><animate attributeName="opacity" values=".25;1;.35" dur="1.72s" repeatCount="indefinite"/></path><path d="M300 175L303 183L311 186L303 189L300 197L297 189L289 186L297 183Z" fill="#fff6d7" opacity=".85"><animate attributeName="opacity" values=".25;1;.35" dur="1.85s" repeatCount="indefinite"/></path><circle cx="112" cy="340" r="7" fill="#b5a9ff" opacity="0"><animate attributeName="opacity" values="0;1;0" keyTimes="0;.25;1" dur="3.8s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="translate" values="0 0;-30 -72" dur="3.8s" repeatCount="indefinite"/></circle><circle cx="368" cy="340" r="5" fill="#fff" opacity="0"><animate attributeName="opacity" values="0;1;0" keyTimes="0;.25;1" dur="3.8s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="translate" values="0 0;32 -82" dur="3.8s" repeatCount="indefinite"/></circle><circle cx="148" cy="455" r="7" fill="#b5a9ff" opacity="0"><animate attributeName="opacity" values="0;1;0" keyTimes="0;.25;1" dur="3.8s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="translate" values="0 0;-44 -32" dur="3.8s" repeatCount="indefinite"/></circle><circle cx="331" cy="462" r="5" fill="#fff" opacity="0"><animate attributeName="opacity" values="0;1;0" keyTimes="0;.25;1" dur="3.8s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="translate" values="0 0;42 -38" dur="3.8s" repeatCount="indefinite"/></circle><circle cx="178" cy="205" r="7" fill="#b5a9ff" opacity="0"><animate attributeName="opacity" values="0;1;0" keyTimes="0;.25;1" dur="3.8s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="translate" values="0 0;-32 48" dur="3.8s" repeatCount="indefinite"/></circle><circle cx="306" cy="201" r="5" fill="#fff" opacity="0"><animate attributeName="opacity" values="0;1;0" keyTimes="0;.25;1" dur="3.8s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="translate" values="0 0;34 48" dur="3.8s" repeatCount="indefinite"/></circle></g>
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 58;0 -8;0 0;0 0;0 -34" keyTimes="0;.18;.3;.78;1" dur="3.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;1;1;0" keyTimes="0;.12;.3;.78;1" dur="3.8s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" additive="sum" type="scale" values=".72;.98;1.035;1;1" keyTimes="0;.18;.34;.46;1" dur="3.8s" repeatCount="indefinite"/>
+      <g filter="url(#softGlow)"><g fill="none" stroke-linecap="round">
+      <path d="M113 263L188 321M179 216L239 292M277 207L250 299M366 255L294 323M133 367L199 354M348 382L280 361" stroke="url(#crystal)" stroke-width="13"/>
+      </g>
+      <g fill="url(#gold)" stroke="#fff9df" stroke-width="4">
+      <path d="M188 302L201 330L232 334L209 354L215 385L188 370L161 385L167 354L144 334L175 330Z"/>
+      <path d="M281 296L290 316L312 319L296 333L300 355L281 344L262 355L266 333L250 319L272 316Z"/>
+      <path d="M241 228L250 246L270 249L255 263L259 283L241 274L223 283L227 263L212 249L232 246Z"/>
+      </g><circle cx="130" cy="423" r="6" fill="#fff"/><circle cx="354" cy="222" r="7" fill="#fff"/><circle cx="333" cy="437" r="5" fill="#fff"/></g>
+      <path d="M145 476Q240 507 335 476" fill="none" stroke="#fff" stroke-opacity=".48" stroke-width="3" stroke-linecap="round"/>
+    </g>
+  </svg>

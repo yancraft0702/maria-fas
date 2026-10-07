@@ -1,0 +1,27 @@
+# deps
+node_modules/
+storage/
+data/
+.env
+.env.local
+.env.*
+!.env.example
+*.log
+
+# temporarios
+tmp/
+.tmp*/
+scripts/tmp/
+tests/artifacts/
+
+# editor
+.vscode/
+.idea/
+*.swp
+
+# os
+Thumbs.db
+.DS_Store
+
+# Certificados de desenvolvimento (HTTPS na rede local) - NUNCA versionar
+.certs/
